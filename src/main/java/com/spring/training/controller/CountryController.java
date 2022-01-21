@@ -16,7 +16,7 @@ public class CountryController {
 
     private CountryService countryService;
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     @Cacheable("countries")
     public List<Country> getCountries() {
       return countryService.getCountries();
