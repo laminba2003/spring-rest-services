@@ -16,7 +16,7 @@ public class CountryController {
     private CountryService countryService;
 
     @GetMapping
-    public List<Country> getAllCountries() {
+    public List<Country> getCountries() {
       return countryService.getCountries();
     }
 
