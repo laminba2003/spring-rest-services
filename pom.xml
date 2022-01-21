@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.spring.training</groupId>
-	<artifactId>rest</artifactId>
+	<artifactId>rest-services</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Spring Rest Services</name>
 	<description>Rest Services for Spring Boot</description>
