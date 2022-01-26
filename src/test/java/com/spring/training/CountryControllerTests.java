@@ -6,6 +6,7 @@ import com.spring.training.service.CountryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -13,13 +14,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(CountryController.class)
-public class WebLayerTests {
+@AutoConfigureRestDocs(outputDir = "target/snippets")
+public class CountryControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -34,7 +37,8 @@ public class WebLayerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].name").value("France"))
                 .andExpect(jsonPath("$.[0].capital").value("Paris"))
-                .andExpect(jsonPath("$.[0].population").value(1223333677));
+                .andExpect(jsonPath("$.[0].population").value(1223333677))
+        .andDo(document("getCountries"));
     }
 
     private List<Country> getCountries() {

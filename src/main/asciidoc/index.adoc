@@ -1,0 +1,9 @@
+= Service Documentation
+
+== GetCountries endpoint
+
+.request
+include::{snippets}/getCountries/http-request.adoc[]
+
+.response
+include::{snippets}/getCountries/http-response.adoc[]
