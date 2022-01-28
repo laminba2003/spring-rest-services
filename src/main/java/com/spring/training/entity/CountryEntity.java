@@ -18,12 +18,7 @@ public class CountryEntity {
     private int population;
 
     public Country toCountry() {
-        Country country = new Country();
-        country.setId(id);
-        country.setName(name);
-        country.setCapital(capital);
-        country.setPopulation(population);
-        return country;
+        return Country.builder().id(id).name(name).capital(capital).population(population).build();
     }
 
 }
