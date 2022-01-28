@@ -1,16 +1,22 @@
 package com.spring.training.service;
 
 import com.spring.training.model.Person;
+import com.spring.training.repository.PersonRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class PersonService {
 
-    public Person findPerson(String name) {
-        Person person = new Person();
-        person.setFirstName("Mamadou Lamine");
-        person.setLastName("Ba");
-        return person;
+    private final PersonRepository personRepository;
+
+    @Cacheable("persons")
+    public List<Person> getPersons() {
+        return personRepository.findAll().stream().map(entity -> entity.toPerson()).collect(Collectors.toList());
     }
 
 }

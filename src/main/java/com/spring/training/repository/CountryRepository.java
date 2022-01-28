@@ -2,7 +2,6 @@ package com.spring.training.repository;
 
 import com.spring.training.entity.CountryEntity;
 import org.springframework.data.repository.CrudRepository;
-
 import java.util.List;
 import java.util.Optional;
 

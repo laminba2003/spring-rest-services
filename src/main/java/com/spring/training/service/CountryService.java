@@ -4,10 +4,8 @@ import com.spring.training.model.Country;
 import com.spring.training.repository.CountryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
@@ -15,7 +13,7 @@ public class CountryService {
 
     private CountryRepository repository;
 
-    public Country findCountry(String name) {
+    public Country getCountry(String name) {
         return repository.findByNameIgnoreCase(name).orElseThrow(() -> new RuntimeException("country not found")).toCountry();
     }
 

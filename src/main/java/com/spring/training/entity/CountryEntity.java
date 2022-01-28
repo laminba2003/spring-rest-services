@@ -19,6 +19,7 @@ public class CountryEntity {
 
     public Country toCountry() {
         Country country = new Country();
+        country.setId(id);
         country.setName(name);
         country.setCapital(capital);
         country.setPopulation(population);
