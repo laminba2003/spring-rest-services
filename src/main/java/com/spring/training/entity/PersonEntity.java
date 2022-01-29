@@ -17,7 +17,11 @@ public class PersonEntity {
     private String lastName;
 
     public Person toPerson() {
-        return Person.builder().id(id).firstName(firstName).lastName(lastName).build();
+        Person person = new Person();
+        person.setId(id);
+        person.setFirstName(firstName);
+        person.setLastName(lastName);
+        return person;
     }
 
 }

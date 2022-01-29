@@ -1,0 +1,42 @@
+server:
+    port: 9090
+
+spring:
+    application:
+        name: spring-training
+    datasource:
+        driverClassName: org.h2.Driver
+        password: password
+        url: jdbc:h2:mem:testdb
+        username: sa
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        defer-datasource-initialization: true
+        generate-ddl: true
+        hibernate:
+            ddl-auto: create
+        show-sql: true
+
+logging:
+    level:
+        org:
+            springframework:
+                web: TRACE
+management:
+    endpoints:
+        web:
+            exposure:
+                include: health,info,wavefront
+    info:
+        env:
+            enabled: true
+
+wavefront:
+    application:
+        name: spring-training
+        service: spring-rest-services
+    freemium-account: true
+
+info:
+    application:
+        name: Spring Rest Services
