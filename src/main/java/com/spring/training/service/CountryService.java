@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CountryService {
 
-    private CountryRepository repository;
+    private final CountryRepository repository;
 
     public Country getCountry(String name) {
         return repository.findByNameIgnoreCase(name).orElseThrow(() -> new RuntimeException("country not found")).toCountry();

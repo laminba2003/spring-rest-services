@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(CountryController.class)
-@AutoConfigureRestDocs(outputDir = "target/snippets")
+@AutoConfigureRestDocs(outputDir = "target/snippets", uriPort = 9090)
 public class CountryControllerTests {
 
     @Autowired
@@ -35,6 +35,7 @@ public class CountryControllerTests {
         given(countryService.getCountries()).willReturn(getCountries());
         mockMvc.perform(get("/countries"))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0].id").value(1L))
                 .andExpect(jsonPath("$.[0].name").value("France"))
                 .andExpect(jsonPath("$.[0].capital").value("Paris"))
                 .andExpect(jsonPath("$.[0].population").value(1223333677))
@@ -44,6 +45,7 @@ public class CountryControllerTests {
     private List<Country> getCountries() {
         List<Country> countries = new ArrayList<>();
         Country country = new Country();
+        country.setId(1L);
         country.setName("France");
         country.setCapital("Paris");
         country.setPopulation(1223333677);

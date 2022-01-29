@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CountryController {
 
-    private CountryService countryService;
+    private final CountryService countryService;
 
     @GetMapping(produces = "application/json")
     @Cacheable("countries")

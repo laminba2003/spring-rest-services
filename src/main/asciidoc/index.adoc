@@ -2,8 +2,88 @@
 
 == GetCountries endpoint
 
+=== UML Diagram
+
+[plantuml, GetCountries-diagram, png]
+----
+class Country {
+
+}
+
+class CountryEntity {
+
+}
+
+interface CountryRepository<CountryEntity, Long> <<Repository>> {
+}
+
+interface CrudRepository<T,ID> {
+}
+
+class CountryService <<Service>> {
+}
+
+class CountryController <<Controller>> {
+}
+
+
+CountryEntity ..> Country
+CountryRepository ..> CountryEntity
+CrudRepository <|-- CountryRepository
+CountryService --> CountryRepository
+CountryController --> CountryService
+
+----
+
+
 .request
 include::{snippets}/getCountries/http-request.adoc[]
 
 .response
 include::{snippets}/getCountries/http-response.adoc[]
+
+
+== GetPersons endpoint
+
+=== UML Diagram
+
+[plantuml, GetPersons-diagram, png]
+----
+class Person {
+  + void setId(Long id)
+  + Long getId()
+  + void setFirstName(String firstName)
+  + String getFirstName()
+}
+
+class PersonEntity {
+
+}
+
+interface PersonRepository<PersonEntity, Long> <<Repository>> {
+}
+
+interface CrudRepository<T, ID> {
+}
+
+class PersonService <<Service>> {
+}
+
+class PersonController <<Controller>> {
+}
+
+
+PersonEntity ..> Person
+PersonRepository --> PersonEntity
+CrudRepository <|-- PersonRepository
+PersonService --> PersonRepository
+PersonController --> PersonService
+
+----
+
+
+.request
+include::{snippets}/getPersons/http-request.adoc[]
+
+.response
+include::{snippets}/getPersons/http-response.adoc[]
