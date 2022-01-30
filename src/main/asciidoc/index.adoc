@@ -1,8 +1,27 @@
 = Service Documentation
+Mamadou Lamine Ba <https://github.com/laminba2003[@laminba2003]>
+:revnumber: {project-version}
+:example-caption!:
+ifndef::imagesdir[:imagesdir: images]
+ifndef::sourcedir[:sourcedir: ../../main/java]
+:description: This developer guide describes how to use this service.
+:keywords: Java, Spring, reference, learn, how to
+:doctype: book
+:page-layout!:
+:toc: left
+:nofooter:
+:sectanchors:
+:sectlinks:
+:sectnums:
+:icons: font
+:source-highlighter: highlightjs
+:source-language: asciidoc
+:docinfo: shared-head
+
 
 == GetCountries endpoint
 
-=== UML Diagram
+=== Design
 
 [plantuml, GetCountries-diagram, png]
 ----
@@ -35,6 +54,7 @@ CountryController --> CountryService
 
 ----
 
+=== Request/Response
 
 .request
 include::{snippets}/getCountries/http-request.adoc[]
@@ -45,7 +65,7 @@ include::{snippets}/getCountries/http-response.adoc[]
 
 == GetPersons endpoint
 
-=== UML Diagram
+=== Design
 
 [plantuml, GetPersons-diagram, png]
 ----
@@ -80,6 +100,8 @@ PersonService --> PersonRepository
 PersonController --> PersonService
 
 ----
+
+=== Request/Response
 
 
 .request
