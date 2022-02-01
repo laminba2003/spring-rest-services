@@ -64,13 +64,13 @@ participant countryRepository
 participant database
 
 client -> countryController: GET /countries
-countryController -> countryService: invoke the getCountries method of the service
-countryService -> countryRepository: invoke the findAll method of the repository
+countryController -> countryService: invokes the getCountries method of the service
+countryService -> countryRepository: invokes the findAll method of the repository
 countryRepository -> database: hits the database to get the list of countries
 countryRepository <-- database: return
 countryService <-- countryRepository: return
 countryService -> countryService: converts the Entities to DTOs
-countryController <-- countryService: return
+countryController <-- countryService: return the list of countries
 countryController -> client: return response as JSON
 
 ----
@@ -129,6 +129,27 @@ PersonController --> PersonService
 ----
 
 === GetPersons endpoint
+
+[plantuml, GetPersons-sequence-diagram, png]
+----
+
+participant client
+participant personController
+participant personService
+participant personRepository
+participant database
+
+client -> personController: GET /persons
+personController -> personService: invokes the getPersons method of the service
+personService -> personRepository: invokes the findAll method of the repository
+personRepository -> database: hits the database to get the list of persons
+personRepository <-- database: return
+personService <-- personRepository: return
+personService -> personService: converts the Entities to DTOs
+personController <-- personService: return the list of persons
+personController -> client: return response as JSON
+
+----
 
 
 .request
