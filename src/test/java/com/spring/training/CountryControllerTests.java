@@ -60,12 +60,7 @@ public class CountryControllerTests {
     }
 
     private Country getCountry() {
-        Country country = new Country();
-        country.setId(1L);
-        country.setName("France");
-        country.setCapital("Paris");
-        country.setPopulation(1223333677);
-        return country;
+        return new Country(1L, "France", "Paris", 1223333677);
     }
 
 }

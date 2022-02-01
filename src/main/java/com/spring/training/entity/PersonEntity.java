@@ -17,11 +17,7 @@ public class PersonEntity {
     private String lastName;
 
     public Person toPerson() {
-        Person person = new Person();
-        person.setId(id);
-        person.setFirstName(firstName);
-        person.setLastName(lastName);
-        return person;
+        return new Person(id, firstName, lastName);
     }
 
 }
