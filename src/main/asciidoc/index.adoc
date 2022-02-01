@@ -19,6 +19,44 @@ ifndef::sourcedir[:sourcedir: ../../main/java]
 :docinfo: shared-head
 
 
+== Design
+
+[plantuml, Package-diagram, png]
+----
+
+package com.spring.training.model {
+    class Country
+    class Person
+}
+
+package com.spring.training.entity {
+    class CountryEntity
+    class PersonEntity
+}
+
+package com.spring.training.repository {
+    interface CountryRepository
+    interface PersonRepository
+}
+
+package com.spring.training.service {
+    class CountryService
+    class PersonService
+}
+
+package com.spring.training.controller {
+    class CountryController
+    class PersonController
+}
+
+com.spring.training.entity ..> com.spring.training.model
+com.spring.training.repository ..> com.spring.training.entity
+com.spring.training.service ..> com.spring.training.repository
+com.spring.training.controller ..> com.spring.training.service
+
+----
+
+
 == Country Controller
 
 [plantuml, GetCountries-class-diagram, png]
