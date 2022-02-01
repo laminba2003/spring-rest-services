@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -42,15 +42,30 @@ public class CountryControllerTests {
         .andDo(document("getCountries"));
     }
 
+    @Test
+    public void testGetCountry() throws Exception {
+        String name = "France";
+        given(countryService.getCountry(name)).willReturn(getCountry());
+        mockMvc.perform(get("/countries/{name}", name))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value("France"))
+                .andExpect(jsonPath("$.capital").value("Paris"))
+                .andExpect(jsonPath("$.population").value(1223333677))
+                .andDo(document("getCountry"));
+    }
+
     private List<Country> getCountries() {
-        List<Country> countries = new ArrayList<>();
+        return Arrays.asList(getCountry());
+    }
+
+    private Country getCountry() {
         Country country = new Country();
         country.setId(1L);
         country.setName("France");
         country.setCapital("Paris");
         country.setPopulation(1223333677);
-        countries.add(country);
-        return countries;
+        return country;
     }
 
 }

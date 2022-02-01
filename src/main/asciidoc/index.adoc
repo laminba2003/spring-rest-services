@@ -19,11 +19,9 @@ ifndef::sourcedir[:sourcedir: ../../main/java]
 :docinfo: shared-head
 
 
-== GetCountries endpoint
+== Country Controller
 
-=== Design
-
-[plantuml, GetCountries-diagram, png]
+[plantuml, GetCountries-class-diagram, png]
 ----
 class Country {
 
@@ -54,20 +52,49 @@ CountryController --> CountryService
 
 ----
 
-=== Request/Response
+=== GetCountries endpoint
+
+[plantuml, GetCountries-sequence-diagram, png]
+----
+
+participant client
+participant countryController
+participant countryService
+participant countryRepository
+participant database
+
+client -> countryController: GET /countries
+countryController -> countryService: invoke the getCountries method of the service
+countryService -> countryRepository: invoke the findAll method of the repository
+countryRepository -> database: hits the database to get the list of countries
+countryRepository <-- database: return
+countryService <-- countryRepository: return
+countryService -> countryService: converts the Entities to DTOs
+countryController <-- countryService: return
+countryController -> client: return response as JSON
+
+----
+
 
 .request
-include::{snippets}/getCountries/http-request.adoc[]
+include::{snippets}/getCountries/curl-request.adoc[]
 
 .response
 include::{snippets}/getCountries/http-response.adoc[]
 
 
-== GetPersons endpoint
+=== GetCountry endpoint
 
-=== Design
+.request
+include::{snippets}/getCountry/curl-request.adoc[]
 
-[plantuml, GetPersons-diagram, png]
+.response
+include::{snippets}/getCountry/http-response.adoc[]
+
+
+== Person Controller
+
+[plantuml, GetPersons-class-diagram, png]
 ----
 class Person {
   + void setId(Long id)
@@ -101,11 +128,11 @@ PersonController --> PersonService
 
 ----
 
-=== Request/Response
+=== GetPersons endpoint
 
 
 .request
-include::{snippets}/getPersons/http-request.adoc[]
+include::{snippets}/getPersons/curl-request.adoc[]
 
 .response
 include::{snippets}/getPersons/http-response.adoc[]
