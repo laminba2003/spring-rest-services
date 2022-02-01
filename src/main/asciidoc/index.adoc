@@ -27,7 +27,7 @@ class Country {
 
 }
 
-class CountryEntity {
+class CountryEntity <<Entity>> {
 
 }
 
@@ -103,7 +103,7 @@ class Person {
   + String getFirstName()
 }
 
-class PersonEntity {
+class PersonEntity <<Entity>> {
 
 }
 
