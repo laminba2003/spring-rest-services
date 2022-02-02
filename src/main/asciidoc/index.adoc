@@ -105,8 +105,8 @@ client -> countryController: GET /countries
 countryController -> countryService: invokes the getCountries method of the service
 countryService -> countryRepository: invokes the findAll method of the repository
 countryRepository -> database: hits the database to get the list of countries
-countryRepository <-- database: return
-countryService <-- countryRepository: return
+countryRepository <-- database: return the records
+countryService <-- countryRepository: return the Entities
 countryService -> countryService: converts the Entities to DTOs
 countryController <-- countryService: return the list of countries
 countryController -> client: return response as JSON
@@ -181,8 +181,8 @@ client -> personController: GET /persons
 personController -> personService: invokes the getPersons method of the service
 personService -> personRepository: invokes the findAll method of the repository
 personRepository -> database: hits the database to get the list of persons
-personRepository <-- database: return
-personService <-- personRepository: return
+personRepository <-- database: return the records
+personService <-- personRepository: return the Entities
 personService -> personService: converts the Entities to DTOs
 personController <-- personService: return the list of persons
 personController -> client: return response as JSON
