@@ -195,3 +195,12 @@ include::{snippets}/getPersons/curl-request.adoc[]
 
 .response
 include::{snippets}/getPersons/http-response.adoc[]
+
+
+=== GetPerson endpoint
+
+.request
+include::{snippets}/getPerson/curl-request.adoc[]
+
+.response
+include::{snippets}/getPerson/http-response.adoc[]
