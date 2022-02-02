@@ -142,6 +142,8 @@
 							<backend>html</backend>
 							<attributes>
 								<snippets>${project.build.directory}/snippets</snippets>
+								<revnumber>${project.version}</revnumber>
+								<revdate>${maven.build.timestamp}</revdate>
 							</attributes>
 						</configuration>
 					</execution>

@@ -19,7 +19,7 @@ ifndef::sourcedir[:sourcedir: ../../main/java]
 :docinfo: shared-head
 
 
-== Design
+== Architecture
 
 [plantuml, Package-diagram, png]
 ----
