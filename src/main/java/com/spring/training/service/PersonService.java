@@ -21,7 +21,7 @@ public class PersonService {
 
     @Cacheable("persons")
     public Person getPerson(Long id) {
-        return personRepository.findById(id).orElseThrow(() -> new RuntimeException("")).toPerson();
+        return personRepository.findById(id).orElseThrow(() -> new RuntimeException("person not found")).toPerson();
     }
 
 }
