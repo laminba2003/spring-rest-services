@@ -23,7 +23,7 @@ public class PersonController {
     }
 
     @GetMapping(path = "{id}", produces = "application/json")
-    public Person getPerson(@PathVariable(name = "id") Long id) {
+    public Person getPerson(@PathVariable("id") Long id) {
         return personService.getPerson(id);
     }
 
