@@ -22,12 +22,12 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
           cache: maven
-      - name: graphviz
+      - name: Install graphviz
         run: sudo apt install graphviz
       - name: Build with Maven
         run: mvn -B package --file pom.xml
       - name: Create Site Documentation
-        run: mkdir documentation && cp target/generated-docs/*.* documentation
+        run: mkdir documentation && cp -R target/generated-docs documentation
       - name: Documentation directory Listing
         run: ls -l documentation
       - name: Publish documentation
