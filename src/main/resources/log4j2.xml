@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
-    <Appenders>
-        <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout
-                    pattern="%style{%d{ISO8601}}{black} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable" />
-        </Console>
+    <Properties>
+        <Property name="LOG_EXCEPTION_CONVERSION_WORD">%xwEx</Property>
+        <Property name="LOG_PATTERN_LEVEL">%-5level [spring-training,%X{traceId},%X{spanId}]</Property>
+        <Property name="LOG_DATEFORMAT_PATTERN">yyyy-MM-dd HH:mm:ss.SSS</Property>
+        <Property name="LOG_PATTERN">%clr{%d{${sys:LOG_DATEFORMAT_PATTERN}}}{faint} %clr{${sys:LOG_PATTERN_LEVEL}} %clr{%pid}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}</Property>
+    </Properties>
+   <Appenders>
+       <Console name="Console" target="SYSTEM_OUT" follow="true">
+           <PatternLayout pattern="${sys:LOG_PATTERN}"/>
+       </Console>
         <RollingFile name="RollingFile"
-                     fileName="./logs/spring-boot-logger-log4j2.log"
-                     filePattern="./logs/$${date:yyyy-MM}/spring-boot-logger-log4j2-%d{-dd-MMMM-yyyy}-%i.log.gz">
-            <PatternLayout>
-                <pattern>%d %p %C{1.} [%t] %m%n</pattern>
-            </PatternLayout>
+                     fileName="./logs/spring-training.log"
+                     filePattern="./logs/$${date:yyyy-MM}/spring-training-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <PatternLayout pattern="${sys:LOG_PATTERN}"/>
             <Policies>
                 <OnStartupTriggeringPolicy />
                 <SizeBasedTriggeringPolicy
