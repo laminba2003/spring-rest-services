@@ -4,7 +4,7 @@ Mamadou Lamine Ba <https://github.com/laminba2003[@laminba2003]>
 :example-caption!:
 ifndef::imagesdir[:imagesdir: images]
 ifndef::sourcedir[:sourcedir: ../../main/java]
-:description: This developer guide describes how to use this service.
+:description: This developer guide describes the design and implementation of a SpringBoot REST service.
 :keywords: Java, Spring, reference, learn, how to
 :doctype: book
 :page-layout!:
