@@ -41,4 +41,4 @@ jobs:
         run: >
             mvn -B spring-boot:build-image -Dspring-boot.build-image.publish=true
                 -Ddocker.user=${{ secrets.DOCKER_USER }} -Ddocker.token=${{ secrets.DOCKER_TOKEN }}
-                "-Ddocker.url=https://hub.docker.com" -DskipTests --file pom.xml
+                -DskipTests --file pom.xml

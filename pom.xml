@@ -17,7 +17,7 @@
 		<java.version>1.8</java.version>
 		<docker.user>user</docker.user>
 		<docker.token>token</docker.token>
-		<docker.url>url</docker.url>
+		<docker.url>https://hub.docker.com</docker.url>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
