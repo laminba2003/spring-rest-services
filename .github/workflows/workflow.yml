@@ -25,7 +25,7 @@ jobs:
       - name: Install graphviz
         run: sudo apt install graphviz
       - name: Build with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn -B package
       - name: Create Site Documentation
         run: |
           mkdir documentation && cp -RT target/generated-docs documentation
@@ -38,6 +38,7 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
       - name: Publish to Docker
-        run: >
-            mvn -B spring-boot:build-image -Dspring-boot.build-image.publish=false
-                --file pom.xml -DskipTests
+        run: |
+            mvn -B spring-boot:build-image -Dspring-boot.build-image.publish=false \
+                -Ddocker.user=${{ secrets.DOCKER_USER }} -Ddocker.token=${{ secrets.DOCKER_TOKEN }} \
+                -DskipTests
