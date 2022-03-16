@@ -15,6 +15,9 @@
 	<description>Rest Services for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
+		<docker.user>user</docker.user>
+		<docker.password>token</docker.password>
+		<docker.url>url</docker.url>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -95,6 +98,16 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<image>
+						<name>laminba2003/spring-rest:${project.version}</name>
+					</image>
+					<docker>
+						<publishRegistry>
+							<username>${docker.user}</username>
+							<password>${docker.password}</password>
+							<url>${docker.url}</url>
+						</publishRegistry>
+					</docker>
 				</configuration>
 			</plugin>
 			<plugin>
