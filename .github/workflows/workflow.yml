@@ -39,6 +39,6 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
       - name: Publish to Docker
         run: |
-            mvn -B spring-boot:build-image -Dspring-boot.build-image.publish=false \
+            mvn -B spring-boot:build-image -Dspring-boot.build-image.publish=true \
                 -Ddocker.user=${{ secrets.DOCKER_USER }} -Ddocker.token=${{ secrets.DOCKER_TOKEN }} \
                 -DskipTests
