@@ -1,6 +1,7 @@
 package com.spring.training;
 
 import com.spring.training.controller.PersonController;
+import com.spring.training.model.Country;
 import com.spring.training.model.Person;
 import com.spring.training.service.PersonService;
 import org.junit.Test;
@@ -50,6 +51,10 @@ public class PersonControllerTests {
                 .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.firstName").value("Mamadou Lamine"))
                 .andExpect(jsonPath("$.lastName").value("Ba"))
+                .andExpect(jsonPath("$.country.id").value(1L))
+                .andExpect(jsonPath("$.country.name").value("France"))
+                .andExpect(jsonPath("$.country.capital").value("Paris"))
+                .andExpect(jsonPath("$.country.population").value(1223333677))
                 .andDo(document("getPerson"));
     }
 
@@ -58,7 +63,8 @@ public class PersonControllerTests {
     }
 
     private Person getPerson() {
-        return new Person(1L, "Mamadou Lamine", "Ba");
+        Country country = new Country(1L, "France", "Paris", 1223333677);
+        return new Person(1L, "Mamadou Lamine", "Ba", country);
     }
 
 }
