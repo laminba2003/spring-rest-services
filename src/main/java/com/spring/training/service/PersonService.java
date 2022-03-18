@@ -1,5 +1,6 @@
 package com.spring.training.service;
 
+import com.spring.training.exception.EntityNotFoundException;
 import com.spring.training.model.Person;
 import com.spring.training.repository.PersonRepository;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,9 @@ public class PersonService {
 
     @Cacheable("persons")
     public Person getPerson(Long id) {
-        return personRepository.findById(id).orElseThrow(() -> new RuntimeException("person not found")).toPerson();
+        return personRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(String.format("person not found with id = %s", id)))
+                .toPerson();
     }
 
 }

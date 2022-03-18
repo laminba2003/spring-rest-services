@@ -1,5 +1,6 @@
 package com.spring.training.service;
 
+import com.spring.training.exception.EntityNotFoundException;
 import com.spring.training.model.Country;
 import com.spring.training.repository.CountryRepository;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,9 @@ public class CountryService {
 
     @Cacheable("countries")
     public Country getCountry(String name) {
-        return repository.findByNameIgnoreCase(name).orElseThrow(() -> new RuntimeException("country not found")).toCountry();
+        return repository.findByNameIgnoreCase(name).orElseThrow(() ->
+                new EntityNotFoundException(String.format("country not found with name = %s", name)))
+                .toCountry();
     }
 
     @Cacheable("countries")
