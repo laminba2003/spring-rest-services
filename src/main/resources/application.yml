@@ -4,6 +4,8 @@ server:
 spring:
     application:
         name: spring-training
+    mvc:
+      throw-exception-if-no-handler-found: true
     datasource:
         driverClassName: org.h2.Driver
         password: password
@@ -15,7 +17,7 @@ spring:
         generate-ddl: true
         hibernate:
             ddl-auto: create
-        show-sql: true
+        show-sql: false
 
 management:
     endpoints:
@@ -34,4 +36,5 @@ wavefront:
 
 info:
     application:
-        name: Spring Rest Services
+        name: spring-training
+        version: '@project.version@'

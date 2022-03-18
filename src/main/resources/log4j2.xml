@@ -29,7 +29,8 @@
             <AppenderRef ref="RollingFile" />
         </Root>
 
-        <Logger name="com.spring.training" level="debug"></Logger>
+        <Logger name="com.spring.training" level="debug"/>
+
     </Loggers>
 
 </Configuration>

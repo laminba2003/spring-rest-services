@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import java.time.LocalDateTime;
 
 @ControllerAdvice
@@ -23,12 +24,18 @@ public class APIExceptionHandler {
         return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler(value = {NumberFormatException.class})
     public ResponseEntity<APIException> handleNumberFormatException(NumberFormatException e) {
         APIException exception = new APIException(HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 HttpStatus.BAD_REQUEST, LocalDateTime.now());
         return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<APIException> handleNoHandlerFound(NoHandlerFoundException e) {
+        APIException exception = new APIException(HttpStatus.NOT_FOUND.getReasonPhrase(),
+                HttpStatus.NOT_FOUND, LocalDateTime.now());
+        return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
     }
 
 }
