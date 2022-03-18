@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
@@ -17,8 +18,7 @@ import java.util.List;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(PersonController.class)
@@ -36,6 +36,7 @@ public class PersonControllerTests {
         given(personService.getPersons()).willReturn(getPersons());
         mockMvc.perform(get("/persons"))
                 .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[0].id").value(1L))
                 .andExpect(jsonPath("$.[0].firstName").value("Mamadou Lamine"))
                 .andExpect(jsonPath("$.[0].lastName").value("Ba"))
@@ -48,6 +49,7 @@ public class PersonControllerTests {
         given(personService.getPerson(id)).willReturn(getPerson());
         mockMvc.perform(get("/persons/{id}", id))
                 .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.firstName").value("Mamadou Lamine"))
                 .andExpect(jsonPath("$.lastName").value("Ba"))
