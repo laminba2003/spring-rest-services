@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApiException {
+public class APIException {
     private String message;
     private HttpStatus status;
     private LocalDateTime timestamp;

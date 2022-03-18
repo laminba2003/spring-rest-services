@@ -10,23 +10,23 @@ import java.time.LocalDateTime;
 public class APIExceptionHandler {
 
     @ExceptionHandler(value = {RequestException.class})
-    public ResponseEntity<ApiException> handleRequestException(RequestException e) {
-        ApiException exception = new ApiException(e.getMessage(),
+    public ResponseEntity<APIException> handleRequestException(RequestException e) {
+        APIException exception = new APIException(e.getMessage(),
                 e.getStatus(), LocalDateTime.now());
         return new ResponseEntity<>(exception, e.getStatus());
     }
 
     @ExceptionHandler(value = {EntityNotFoundException.class})
-    public ResponseEntity<ApiException> handleEntityNotFoundException(EntityNotFoundException e) {
-        ApiException exception = new ApiException(e.getMessage(),
+    public ResponseEntity<APIException> handleEntityNotFoundException(EntityNotFoundException e) {
+        APIException exception = new APIException(e.getMessage(),
                 HttpStatus.NOT_FOUND, LocalDateTime.now());
         return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
     }
 
 
     @ExceptionHandler(value = {NumberFormatException.class})
-    public ResponseEntity<ApiException> handleNumberFormatException(NumberFormatException e) {
-        ApiException exception = new ApiException(HttpStatus.BAD_REQUEST.getReasonPhrase(),
+    public ResponseEntity<APIException> handleNumberFormatException(NumberFormatException e) {
+        APIException exception = new APIException(HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 HttpStatus.BAD_REQUEST, LocalDateTime.now());
         return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
     }

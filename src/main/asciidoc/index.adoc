@@ -4,6 +4,7 @@ Mamadou Lamine Ba <https://github.com/laminba2003[@laminba2003]>
 :example-caption!:
 ifndef::imagesdir[:imagesdir: images]
 ifndef::sourcedir[:sourcedir: ../../main/java]
+ifndef::snippets[:snippets: ../../../target/snippets]
 :description: This developer guide describes the design and implementation of a SpringBoot REST service.
 :keywords: Java, Spring, reference, learn, how to
 :doctype: book
@@ -39,6 +40,13 @@ package com.spring.training.repository {
     interface PersonRepository
 }
 
+package com.spring.training.exception {
+    class APIException
+    class EntityNotFoundException
+    class RequestException
+    class APIExceptionHandler
+}
+
 package com.spring.training.service {
     class CountryService
     class PersonService
@@ -49,9 +57,11 @@ package com.spring.training.controller {
     class PersonController
 }
 
+
 com.spring.training.entity ..> com.spring.training.model
 com.spring.training.repository ..> com.spring.training.entity
 com.spring.training.service ..> com.spring.training.repository
+com.spring.training.service ..> com.spring.training.exception
 com.spring.training.controller ..> com.spring.training.service
 
 ----
