@@ -149,11 +149,21 @@ class Person {
   + Long getId()
   + void setFirstName(String firstName)
   + String getFirstName()
+  + void setCountry(Country country)
+  + Country getCountry()
+}
+
+class Country {
 }
 
 class PersonEntity <<Entity>> {
-
+  + Person toPerson()
 }
+
+class CountryEntity <<Entity>> {
+  + Country toCountry()
+}
+
 
 interface PersonRepository<PersonEntity, Long> <<Repository>> {
 }
@@ -169,7 +179,10 @@ class PersonController <<Controller>> {
 
 
 PersonEntity ..> Person
-PersonRepository --> PersonEntity
+PersonEntity -> CountryEntity
+CountryEntity ..> Country
+Person -> Country
+PersonRepository ..> PersonEntity
 CrudRepository <|-- PersonRepository
 PersonService --> PersonRepository
 PersonController --> PersonService
