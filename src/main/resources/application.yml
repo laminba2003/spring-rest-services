@@ -1,26 +1,12 @@
 server:
     port: 9090
-
 spring:
     application:
         name: spring-training
     mvc:
       throw-exception-if-no-handler-found: true
-    cloud:
-      kubernetes:
-        enabled: false
-    datasource:
-        driverClassName: org.h2.Driver
-        password: password
-        url: jdbc:h2:mem:testdb
-        username: sa
-    jpa:
-        database-platform: org.hibernate.dialect.H2Dialect
-        defer-datasource-initialization: true
-        generate-ddl: true
-        hibernate:
-            ddl-auto: create
-        show-sql: false
+    liquibase:
+        change-log: classpath:/db/changelog/changelog-master.xml
 
 management:
     endpoints:
@@ -30,17 +16,6 @@ management:
     info:
         env:
             enabled: true
-
-    metrics:
-      export:
-        wavefront:
-          enabled: false
-
-wavefront:
-    application:
-        name: spring-training
-        service: spring-rest-services
-    freemium-account: true
 
 info:
     application:
