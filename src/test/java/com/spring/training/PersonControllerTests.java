@@ -1,5 +1,6 @@
 package com.spring.training;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.training.controller.PersonController;
 import com.spring.training.model.Country;
 import com.spring.training.model.Person;
@@ -17,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -33,31 +34,70 @@ public class PersonControllerTests {
 
     @Test
     public void testGetPersons() throws Exception {
+        List<Person> persons = getPersons();
         given(personService.getPersons()).willReturn(getPersons());
         mockMvc.perform(get("/persons"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].id").value(1L))
-                .andExpect(jsonPath("$.[0].firstName").value("Mamadou Lamine"))
-                .andExpect(jsonPath("$.[0].lastName").value("Ba"))
+                .andExpect(jsonPath("$.[0].id").value(persons.get(0).getId()))
+                .andExpect(jsonPath("$.[0].firstName").value(persons.get(0).getFirstName()))
+                .andExpect(jsonPath("$.[0].lastName").value(persons.get(0).getLastName()))
                 .andDo(document("getPersons"));
     }
 
     @Test
     public void testGetPerson() throws Exception {
-        Long id = 1L;
-        given(personService.getPerson(id)).willReturn(getPerson());
-        mockMvc.perform(get("/persons/{id}", id))
+        Person person = getPerson();
+        given(personService.getPerson(person.getId())).willReturn(person);
+        mockMvc.perform(get("/persons/{id}", person.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.firstName").value("Mamadou Lamine"))
-                .andExpect(jsonPath("$.lastName").value("Ba"))
-                .andExpect(jsonPath("$.country.id").value(1L))
-                .andExpect(jsonPath("$.country.name").value("France"))
-                .andExpect(jsonPath("$.country.capital").value("Paris"))
-                .andExpect(jsonPath("$.country.population").value(1223333677))
+                .andExpect(jsonPath("$.id").value(person.getId()))
+                .andExpect(jsonPath("$.firstName").value(person.getFirstName()))
+                .andExpect(jsonPath("$.lastName").value(person.getLastName()))
+                .andExpect(jsonPath("$.country.id").value(person.getCountry().getId()))
+                .andExpect(jsonPath("$.country.name").value(person.getCountry().getName()))
+                .andExpect(jsonPath("$.country.capital").value(person.getCountry().getCapital()))
+                .andExpect(jsonPath("$.country.population").value(person.getCountry().getPopulation()))
                 .andDo(document("getPerson"));
+    }
+
+    @Test
+    public void testCreatePerson() throws Exception {
+        Person person = getPerson();
+        given(personService.createPerson(person)).willReturn(person);
+        mockMvc.perform(post("/persons")
+                .content(new ObjectMapper().writeValueAsString(person))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(person.getId()))
+                .andExpect(jsonPath("$.firstName").value(person.getFirstName()))
+                .andExpect(jsonPath("$.lastName").value(person.getLastName()))
+                .andExpect(jsonPath("$.country.id").value(person.getCountry().getId()))
+                .andExpect(jsonPath("$.country.name").value(person.getCountry().getName()))
+                .andExpect(jsonPath("$.country.capital").value(person.getCountry().getCapital()))
+                .andExpect(jsonPath("$.country.population").value(person.getCountry().getPopulation()))
+                .andDo(document("createPerson"));
+    }
+
+    @Test
+    public void testUpdatePerson() throws Exception {
+        Person person = getPerson();
+        given(personService.updatePerson(person)).willReturn(person);
+        mockMvc.perform(put("/persons/{id}", person.getId())
+                .content(new ObjectMapper().writeValueAsString(person))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(person.getId()))
+                .andExpect(jsonPath("$.firstName").value(person.getFirstName()))
+                .andExpect(jsonPath("$.lastName").value(person.getLastName()))
+                .andExpect(jsonPath("$.country.id").value(person.getCountry().getId()))
+                .andExpect(jsonPath("$.country.name").value(person.getCountry().getName()))
+                .andExpect(jsonPath("$.country.capital").value(person.getCountry().getCapital()))
+                .andExpect(jsonPath("$.country.population").value(person.getCountry().getPopulation()))
+                .andDo(document("updatePerson"));
     }
 
     private List<Person> getPersons() {

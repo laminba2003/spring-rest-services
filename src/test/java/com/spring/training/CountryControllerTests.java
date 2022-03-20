@@ -1,5 +1,6 @@
 package com.spring.training;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.training.controller.CountryController;
 import com.spring.training.model.Country;
 import com.spring.training.service.CountryService;
@@ -16,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -32,29 +33,62 @@ public class CountryControllerTests {
 
     @Test
     public void testGetCountries() throws Exception {
-        given(countryService.getCountries()).willReturn(getCountries());
+        List<Country> countries = getCountries();
+        given(countryService.getCountries()).willReturn(countries);
         mockMvc.perform(get("/countries"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].id").value(1L))
-                .andExpect(jsonPath("$.[0].name").value("France"))
-                .andExpect(jsonPath("$.[0].capital").value("Paris"))
-                .andExpect(jsonPath("$.[0].population").value(1223333677))
+                .andExpect(jsonPath("$.[0].id").value(countries.get(0).getId()))
+                .andExpect(jsonPath("$.[0].name").value(countries.get(0).getName()))
+                .andExpect(jsonPath("$.[0].capital").value(countries.get(0).getCapital()))
+                .andExpect(jsonPath("$.[0].population").value(countries.get(0).getPopulation()))
         .andDo(document("getCountries"));
     }
 
     @Test
     public void testGetCountry() throws Exception {
-        String name = "France";
-        given(countryService.getCountry(name)).willReturn(getCountry());
-        mockMvc.perform(get("/countries/{name}", name))
+        Country country = getCountry();
+        given(countryService.getCountry(country.getName())).willReturn(country);
+        mockMvc.perform(get("/countries/{name}", country.getName()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.name").value("France"))
-                .andExpect(jsonPath("$.capital").value("Paris"))
-                .andExpect(jsonPath("$.population").value(1223333677))
+                .andExpect(jsonPath("$.id").value(country.getId()))
+                .andExpect(jsonPath("$.name").value(country.getName()))
+                .andExpect(jsonPath("$.capital").value(country.getCapital()))
+                .andExpect(jsonPath("$.population").value(country.getPopulation()))
                 .andDo(document("getCountry"));
+    }
+
+    @Test
+    public void testCreateCountry() throws Exception {
+        Country country = getCountry();
+        given(countryService.createCountry(country)).willReturn(country);
+         mockMvc.perform(post("/countries")
+                .content(new ObjectMapper().writeValueAsString(country))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(country.getId()))
+                .andExpect(jsonPath("$.name").value(country.getName()))
+                .andExpect(jsonPath("$.capital").value(country.getCapital()))
+                .andExpect(jsonPath("$.population").value(country.getPopulation()))
+                .andDo(document("createCountry"));
+    }
+
+    @Test
+    public void testUpdateCountry() throws Exception {
+        Country country = getCountry();
+        given(countryService.updateCountry(country)).willReturn(country);
+        mockMvc.perform(put("/countries/{id}", country.getId())
+                .content(new ObjectMapper().writeValueAsString(country))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(country.getId()))
+                .andExpect(jsonPath("$.name").value(country.getName()))
+                .andExpect(jsonPath("$.capital").value(country.getCapital()))
+                .andExpect(jsonPath("$.population").value(country.getPopulation()))
+                .andDo(document("updateCountry"));
     }
 
     private List<Country> getCountries() {

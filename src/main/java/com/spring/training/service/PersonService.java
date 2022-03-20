@@ -24,4 +24,12 @@ public class PersonService {
                 .toPerson();
     }
 
+    public Person createPerson(Person person) {
+        return person;
+    }
+
+    public Person updatePerson(Person person) {
+        return person;
+    }
+
 }

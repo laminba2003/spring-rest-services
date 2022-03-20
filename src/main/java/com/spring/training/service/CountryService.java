@@ -38,4 +38,8 @@ public class CountryService {
        return repository.save(CountryEntity.fromCountry(country))
                 .toCountry();
     }
+
+    public Country updateCountry(Country country) {
+        return country;
+    }
 }

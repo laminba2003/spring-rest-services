@@ -107,7 +107,7 @@ CountryController --> CountryService
 
 ----
 
-=== GetCountries endpoint
+=== GetCountries
 
 [plantuml, GetCountries-sequence-diagram, png]
 ----
@@ -138,13 +138,31 @@ include::{snippets}/getCountries/curl-request.adoc[]
 include::{snippets}/getCountries/http-response.adoc[]
 
 
-=== GetCountry endpoint
+=== GetCountry
 
 .request
 include::{snippets}/getCountry/curl-request.adoc[]
 
 .response
 include::{snippets}/getCountry/http-response.adoc[]
+
+
+
+=== CreateCountry
+
+.request
+include::{snippets}/createCountry/curl-request.adoc[]
+
+.response
+include::{snippets}/createCountry/http-response.adoc[]
+
+=== UpdateCountry
+
+.request
+include::{snippets}/updateCountry/curl-request.adoc[]
+
+.response
+include::{snippets}/updateCountry/http-response.adoc[]
 
 
 == Person Controller
@@ -198,7 +216,7 @@ PersonController --> PersonService
 
 ----
 
-=== GetPersons endpoint
+=== GetPersons
 
 [plantuml, GetPersons-sequence-diagram, png]
 ----
@@ -229,10 +247,28 @@ include::{snippets}/getPersons/curl-request.adoc[]
 include::{snippets}/getPersons/http-response.adoc[]
 
 
-=== GetPerson endpoint
+=== GetPerson
 
 .request
 include::{snippets}/getPerson/curl-request.adoc[]
 
 .response
 include::{snippets}/getPerson/http-response.adoc[]
+
+
+=== CreatePerson
+
+.request
+include::{snippets}/createPerson/curl-request.adoc[]
+
+.response
+include::{snippets}/createPerson/http-response.adoc[]
+
+
+=== UpdatePerson
+
+.request
+include::{snippets}/updatePerson/curl-request.adoc[]
+
+.response
+include::{snippets}/updatePerson/http-response.adoc[]

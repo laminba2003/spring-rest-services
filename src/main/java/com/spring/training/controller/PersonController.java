@@ -4,10 +4,9 @@ import com.spring.training.model.Person;
 import com.spring.training.service.PersonService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,6 +27,17 @@ public class PersonController {
     public Person getPerson(@PathVariable("id") Long id) {
         log.debug("returning the person with id = {}", id);
         return personService.getPerson(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Person createPerson(@Valid @RequestBody Person person) {
+        return personService.createPerson(person);
+    }
+
+    @PutMapping("{id}")
+    public Person updatePerson(@PathVariable("id") Long id, @Valid @RequestBody Person person) {
+        return personService.updatePerson(person);
     }
 
 }
