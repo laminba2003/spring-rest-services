@@ -1,11 +1,5 @@
 spring:
-    cloud:
-      kubernetes:
-        enabled: false
     datasource:
-        driver-class-name: com.mysql.cj.jdbc.Driver
         password: passer
         url: jdbc:mysql://localhost:3306/example?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
         username: root
-    jpa:
-        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
