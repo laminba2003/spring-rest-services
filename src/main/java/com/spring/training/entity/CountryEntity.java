@@ -2,9 +2,7 @@ package com.spring.training.entity;
 
 import com.spring.training.model.Country;
 import lombok.Data;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -12,6 +10,7 @@ import javax.persistence.Table;
 public class CountryEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String capital;
@@ -19,6 +18,14 @@ public class CountryEntity {
 
     public Country toCountry() {
         return new Country(id, name, capital, population);
+    }
+
+    public static CountryEntity fromCountry(Country country) {
+        CountryEntity entity = new CountryEntity();
+        entity.setName(country.getName());
+        entity.setCapital(country.getCapital());
+        entity.setPopulation(country.getPopulation());
+        return entity;
     }
 
 }

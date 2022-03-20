@@ -4,11 +4,9 @@ import com.spring.training.model.Country;
 import com.spring.training.service.CountryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,16 +17,23 @@ public class CountryController {
 
     private final CountryService countryService;
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
     public List<Country> getCountries() {
         log.debug("returning the list of countries");
         return countryService.getCountries();
     }
 
-    @GetMapping(path="{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path="{name}")
     public Country getCountry(@PathVariable("name") String name) {
         log.debug("returning the country with name = {}", name);
         return countryService.getCountry(name);
+    }
+
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Country createCountry(@Valid @RequestBody Country country) {
+        log.debug("creating country with values = {}", country);
+        return countryService.createCountry(country);
     }
 
 }

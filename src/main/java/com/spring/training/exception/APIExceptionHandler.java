@@ -2,9 +2,9 @@ package com.spring.training.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.NoHandlerFoundException;
 import java.time.LocalDateTime;
 
 @ControllerAdvice
@@ -31,11 +31,11 @@ public class APIExceptionHandler {
         return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<APIException> handleNoHandlerFound(NoHandlerFoundException e) {
-        APIException exception = new APIException(HttpStatus.NOT_FOUND.getReasonPhrase(),
-                HttpStatus.NOT_FOUND, LocalDateTime.now());
-        return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<APIException> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        APIException exception = new APIException("the input provided is invalid",
+                HttpStatus.BAD_REQUEST, LocalDateTime.now());
+        return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
     }
 
 }
