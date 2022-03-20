@@ -1,0 +1,6 @@
+spring:
+    cloud:
+      kubernetes:
+        enabled: false
+    liquibase:
+      change-log: classpath:/db/changelog/changelog-master.xml

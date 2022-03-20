@@ -72,11 +72,18 @@ com.spring.training.controller ..> com.spring.training.service
 [plantuml, GetCountries-class-diagram, png]
 ----
 class Country {
-
+  + id: Long
+  + name: String
+  + capital: String
+  + population: Integer
 }
 
 class CountryEntity <<Entity>> {
-
+  + id: Long
+  + name: String
+  + capital: String
+  + population: Integer
+  + Country toCountry()
 }
 
 interface CountryRepository<CountryEntity, Long> <<Repository>> {
@@ -145,18 +152,20 @@ include::{snippets}/getCountry/http-response.adoc[]
 [plantuml, GetPersons-class-diagram, png]
 ----
 class Person {
-  + void setId(Long id)
-  + Long getId()
-  + void setFirstName(String firstName)
-  + String getFirstName()
-  + void setCountry(Country country)
-  + Country getCountry()
+  + Long id
+  + String firstName
+  + String lastName
+  + Country country
 }
 
 class Country {
 }
 
 class PersonEntity <<Entity>> {
+  + Long id
+  + String firstName
+  + String lastName
+  + CountryEntry country
   + Person toPerson()
 }
 
