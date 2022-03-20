@@ -32,11 +32,14 @@ public class PersonController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Person createPerson(@Valid @RequestBody Person person) {
+        log.debug("creating person with values = {}", person);
         return personService.createPerson(person);
     }
 
     @PutMapping("{id}")
     public Person updatePerson(@PathVariable("id") Long id, @Valid @RequestBody Person person) {
+        person.setId(id);
+        log.debug("updating person with values = {}", person);
         return personService.updatePerson(person);
     }
 

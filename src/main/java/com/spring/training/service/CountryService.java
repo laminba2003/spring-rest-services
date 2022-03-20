@@ -30,16 +30,20 @@ public class CountryService {
     }
 
     public Country createCountry(Country country) {
-        repository.findByNameIgnoreCase(country.getName())
+       repository.findByNameIgnoreCase(country.getName())
                 .ifPresent(entity -> {
                     throw new RequestException(String.format("the country with name %s is already created", entity.getName()),
                             HttpStatus.CONFLICT);
                 });
-       return repository.save(CountryEntity.fromCountry(country))
-                .toCountry();
+       return repository.save(CountryEntity.fromCountry(country)).toCountry();
     }
 
     public Country updateCountry(Country country) {
-        return country;
+        return repository.findById(country.getId())
+                .map(entity -> {
+                    CountryEntity modified = CountryEntity.fromCountry(country);
+                    modified.setId(entity.getId());
+                    return repository.save(modified).toCountry();
+                }).orElseThrow(() -> new EntityNotFoundException(String.format("country not found with id = %d", country.getId())));
     }
 }
