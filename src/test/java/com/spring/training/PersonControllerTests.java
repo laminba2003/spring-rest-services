@@ -32,6 +32,9 @@ public class PersonControllerTests {
     @MockBean
     private PersonService personService;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Test
     public void testGetPersons() throws Exception {
         List<Person> persons = getPersons();
@@ -67,7 +70,7 @@ public class PersonControllerTests {
         Person person = getPerson();
         given(personService.createPerson(person)).willReturn(person);
         mockMvc.perform(post("/persons")
-                .content(new ObjectMapper().writeValueAsString(person))
+                .content(objectMapper.writeValueAsString(person))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -86,7 +89,7 @@ public class PersonControllerTests {
         Person person = getPerson();
         given(personService.updatePerson(person)).willReturn(person);
         mockMvc.perform(put("/persons/{id}", person.getId())
-                .content(new ObjectMapper().writeValueAsString(person))
+                .content(objectMapper.writeValueAsString(person))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

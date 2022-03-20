@@ -31,6 +31,9 @@ public class CountryControllerTests {
     @MockBean
     private CountryService countryService;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Test
     public void testGetCountries() throws Exception {
         List<Country> countries = getCountries();
@@ -64,7 +67,7 @@ public class CountryControllerTests {
         Country country = getCountry();
         given(countryService.createCountry(country)).willReturn(country);
          mockMvc.perform(post("/countries")
-                .content(new ObjectMapper().writeValueAsString(country))
+                .content(objectMapper.writeValueAsString(country))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -80,7 +83,7 @@ public class CountryControllerTests {
         Country country = getCountry();
         given(countryService.updateCountry(country)).willReturn(country);
         mockMvc.perform(put("/countries/{id}", country.getId())
-                .content(new ObjectMapper().writeValueAsString(country))
+                .content(objectMapper.writeValueAsString(country))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
