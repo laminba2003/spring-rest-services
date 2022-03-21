@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CountryRepository extends CrudRepository<CountryEntity, Long> {
+public interface CountryRepository extends CrudRepository<CountryEntity, String> {
 
     public Optional<CountryEntity> findByNameIgnoreCase(String name);
 

@@ -1,6 +1,5 @@
 package com.spring.training.service;
 
-import com.spring.training.entity.CountryEntity;
 import com.spring.training.entity.PersonEntity;
 import com.spring.training.exception.EntityNotFoundException;
 import com.spring.training.model.Person;
@@ -9,7 +8,6 @@ import com.spring.training.repository.PersonRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,23 +28,20 @@ public class PersonService {
     }
 
     public Person createPerson(Person person) {
-        Long id = Optional.ofNullable(person.getCountry().getId()).orElseThrow(() -> new NumberFormatException());
-        countryRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(String.format("country not found with id = %d", id)));
+        person.setCountry(countryRepository.findByNameIgnoreCase(person.getCountry().getName()).orElseThrow(() ->
+                new EntityNotFoundException(String.format("country not found with name = %s", person.getCountry().getName()))).toCountry());
         return personRepository.save(PersonEntity.fromPerson(person)).toPerson();
     }
 
-    public Person updatePerson(Person person) {
-        Long id = Optional.ofNullable(person.getCountry().getId()).orElseThrow(() -> new NumberFormatException());
-        CountryEntity countryEntity = countryRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(String.format("country not found with id = %d", id)));
-        return personRepository.findById(person.getId())
+    public Person updatePerson(Long id, Person person) {
+        person.setCountry(countryRepository.findByNameIgnoreCase(person.getCountry().getName()).orElseThrow(() ->
+                new EntityNotFoundException(String.format("country not found with name = %s", person.getCountry().getName()))).toCountry());
+        return personRepository.findById(id)
                 .map(entity -> {
                     PersonEntity modified = PersonEntity.fromPerson(person);
-                    modified.setId(entity.getId());
-                    modified.setCountry(countryEntity);
+                    modified.setId(id);
                     return personRepository.save(modified).toPerson();
-                }).orElseThrow(() -> new EntityNotFoundException(String.format("person not found with id = %d", person.getId())));
+                }).orElseThrow(() -> new EntityNotFoundException(String.format("person not found with id = %d", id)));
     }
 
 }

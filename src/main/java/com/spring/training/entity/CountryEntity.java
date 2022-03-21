@@ -10,14 +10,12 @@ import javax.persistence.*;
 public class CountryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     private String name;
     private String capital;
     private int population;
 
     public Country toCountry() {
-        return new Country(id, name, capital, population);
+        return new Country(name, capital, population);
     }
 
     public static CountryEntity fromCountry(Country country) {

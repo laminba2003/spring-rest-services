@@ -72,21 +72,19 @@ com.spring.training.controller ..> com.spring.training.service
 [plantuml, GetCountries-class-diagram, png]
 ----
 class Country {
-  + id: Long
   + name: String
   + capital: String
   + population: Integer
 }
 
 class CountryEntity <<Entity>> {
-  + id: Long
   + name: String
   + capital: String
   + population: Integer
   + Country toCountry()
 }
 
-interface CountryRepository<CountryEntity, Long> <<Repository>> {
+interface CountryRepository<CountryEntity, String> <<Repository>> {
 }
 
 interface CrudRepository<T,ID> {

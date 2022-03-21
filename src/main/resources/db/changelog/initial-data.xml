@@ -8,19 +8,16 @@
 
     <changeSet author="mamadou lamine ba" id="initial-data-countries">
         <insert tableName="countries">
-            <column name="id" value="1"></column>
             <column name="name" value="France"></column>
             <column name="capital" value="Paris"></column>
             <column name="population" value="12233344"></column>
         </insert>
         <insert tableName="countries">
-            <column name="id" value="2"></column>
             <column name="name" value="Spain"></column>
             <column name="capital" value="Madrid"></column>
             <column name="population" value="12233344"></column>
         </insert>
         <insert tableName="countries">
-            <column name="id" value="3"></column>
             <column name="name" value="Senegal"></column>
             <column name="capital" value="Dakar"></column>
             <column name="population" value="12233344"></column>
@@ -32,13 +29,13 @@
             <column name="id" value="1"></column>
             <column name="first_name" value="Mamadou Lamine"></column>
             <column name="last_name" value="Ba"></column>
-            <column name="country_id" value="1"></column>
+            <column name="country_name" value="France"></column>
         </insert>
         <insert tableName="persons">
             <column name="id" value="2"></column>
             <column name="first_name" value="John"></column>
             <column name="last_name" value="Doe"></column>
-            <column name="country_id" value="2"></column>
+            <column name="country_name" value="Senegal"></column>
         </insert>
     </changeSet>
 </databaseChangeLog>

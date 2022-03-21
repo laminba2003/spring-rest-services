@@ -45,6 +45,9 @@ public class PersonControllerTests {
                 .andExpect(jsonPath("$.[0].id").value(persons.get(0).getId()))
                 .andExpect(jsonPath("$.[0].firstName").value(persons.get(0).getFirstName()))
                 .andExpect(jsonPath("$.[0].lastName").value(persons.get(0).getLastName()))
+                .andExpect(jsonPath("$.[0].country.name").value(persons.get(0).getCountry().getName()))
+                .andExpect(jsonPath("$.[0].country.capital").value(persons.get(0).getCountry().getCapital()))
+                .andExpect(jsonPath("$.[0].country.population").value(persons.get(0).getCountry().getPopulation()))
                 .andDo(document("getPersons"));
     }
 
@@ -58,7 +61,6 @@ public class PersonControllerTests {
                 .andExpect(jsonPath("$.id").value(person.getId()))
                 .andExpect(jsonPath("$.firstName").value(person.getFirstName()))
                 .andExpect(jsonPath("$.lastName").value(person.getLastName()))
-                .andExpect(jsonPath("$.country.id").value(person.getCountry().getId()))
                 .andExpect(jsonPath("$.country.name").value(person.getCountry().getName()))
                 .andExpect(jsonPath("$.country.capital").value(person.getCountry().getCapital()))
                 .andExpect(jsonPath("$.country.population").value(person.getCountry().getPopulation()))
@@ -77,7 +79,6 @@ public class PersonControllerTests {
                 .andExpect(jsonPath("$.id").value(person.getId()))
                 .andExpect(jsonPath("$.firstName").value(person.getFirstName()))
                 .andExpect(jsonPath("$.lastName").value(person.getLastName()))
-                .andExpect(jsonPath("$.country.id").value(person.getCountry().getId()))
                 .andExpect(jsonPath("$.country.name").value(person.getCountry().getName()))
                 .andExpect(jsonPath("$.country.capital").value(person.getCountry().getCapital()))
                 .andExpect(jsonPath("$.country.population").value(person.getCountry().getPopulation()))
@@ -87,7 +88,7 @@ public class PersonControllerTests {
     @Test
     public void testUpdatePerson() throws Exception {
         Person person = getPerson();
-        given(personService.updatePerson(person)).willReturn(person);
+        given(personService.updatePerson(person.getId(), person)).willReturn(person);
         mockMvc.perform(put("/persons/{id}", person.getId())
                 .content(objectMapper.writeValueAsString(person))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -96,7 +97,6 @@ public class PersonControllerTests {
                 .andExpect(jsonPath("$.id").value(person.getId()))
                 .andExpect(jsonPath("$.firstName").value(person.getFirstName()))
                 .andExpect(jsonPath("$.lastName").value(person.getLastName()))
-                .andExpect(jsonPath("$.country.id").value(person.getCountry().getId()))
                 .andExpect(jsonPath("$.country.name").value(person.getCountry().getName()))
                 .andExpect(jsonPath("$.country.capital").value(person.getCountry().getCapital()))
                 .andExpect(jsonPath("$.country.population").value(person.getCountry().getPopulation()))
@@ -108,7 +108,7 @@ public class PersonControllerTests {
     }
 
     private Person getPerson() {
-        Country country = new Country(1L, "France", "Paris", 1223333677);
+        Country country = new Country("France", "Paris", 1223333677);
         return new Person(1L, "Mamadou Lamine", "Ba", country);
     }
 

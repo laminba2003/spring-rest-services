@@ -38,12 +38,12 @@ public class CountryService {
        return repository.save(CountryEntity.fromCountry(country)).toCountry();
     }
 
-    public Country updateCountry(Country country) {
-        return repository.findById(country.getId())
+    public Country updateCountry(String name, Country country) {
+        return repository.findByNameIgnoreCase(name)
                 .map(entity -> {
                     CountryEntity modified = CountryEntity.fromCountry(country);
-                    modified.setId(entity.getId());
+                    modified.setName(name);
                     return repository.save(modified).toCountry();
-                }).orElseThrow(() -> new EntityNotFoundException(String.format("country not found with id = %d", country.getId())));
+                }).orElseThrow(() -> new EntityNotFoundException(String.format("country not found with name = %s", name)));
     }
 }

@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Country {
-    private Long id;
     @NotNull
     private String name;
     @NotNull

@@ -36,11 +36,10 @@ public class CountryController {
         return countryService.createCountry(country);
     }
 
-    @PutMapping("{id}")
-    public Country updateCountry(@PathVariable("id") Long id, @Valid @RequestBody Country country) {
-        country.setId(id);
-        log.debug("updating country with values = {}", country);
-        return countryService.updateCountry(country);
+    @PutMapping("{name}")
+    public Country updateCountry(@PathVariable("name") String name, @Valid @RequestBody Country country) {
+        log.debug("updating country with name = {} and values = {}", name, country);
+        return countryService.updateCountry(name, country);
     }
 
 }

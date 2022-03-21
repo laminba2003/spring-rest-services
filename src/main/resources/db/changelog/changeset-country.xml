@@ -8,11 +8,8 @@
 
     <changeSet author="mamadou lamine ba" id="create-table-countries">
         <createTable tableName="countries">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints primaryKey="true"/>
-            </column>
             <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
+                <constraints primaryKey="true"/>
             </column>
             <column name="capital" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -22,21 +19,4 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="mamadou lamine ba" id="create-table-persons">
-        <createTable tableName="persons">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="first_name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="last_name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="country_id" type="BIGINT">
-                <constraints foreignKeyName="fk_persons_country_id"
-                             references="countries(id)"/>
-            </column>
-        </createTable>
-    </changeSet>
 </databaseChangeLog>
