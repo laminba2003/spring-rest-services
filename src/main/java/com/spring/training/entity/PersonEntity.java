@@ -21,4 +21,12 @@ public class PersonEntity {
         return new Person(id, firstName, lastName, country.toCountry());
     }
 
+    public static PersonEntity fromPerson(Person person) {
+        PersonEntity entity = new PersonEntity();
+        entity.setFirstName(person.getFirstName());
+        entity.setLastName(person.getLastName());
+        entity.setCountry(CountryEntity.fromCountry(person.getCountry()));
+        return entity;
+    }
+
 }
