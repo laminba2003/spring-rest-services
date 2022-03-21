@@ -3,7 +3,7 @@ package com.spring.training.service;
 import com.spring.training.entity.CountryEntity;
 import com.spring.training.exception.EntityNotFoundException;
 import com.spring.training.exception.RequestException;
-import com.spring.training.model.Country;
+import com.spring.training.domain.Country;
 import com.spring.training.repository.CountryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;

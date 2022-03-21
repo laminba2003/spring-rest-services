@@ -1,6 +1,6 @@
 package com.spring.training.controller;
 
-import com.spring.training.model.Person;
+import com.spring.training.domain.Person;
 import com.spring.training.service.PersonService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

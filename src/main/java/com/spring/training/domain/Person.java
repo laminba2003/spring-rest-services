@@ -1,4 +1,4 @@
-package com.spring.training.model;
+package com.spring.training.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,10 +9,12 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Country implements Serializable {
+public class Person implements Serializable {
+    private Long id;
     @NotNull
-    private String name;
+    private String firstName;
     @NotNull
-    private String capital;
-    private int population;
+    private String lastName;
+    @NotNull
+    private Country country;
 }

@@ -1,6 +1,6 @@
 package com.spring.training.entity;
 
-import com.spring.training.model.Person;
+import com.spring.training.domain.Person;
 import lombok.Data;
 import javax.persistence.*;
 

@@ -2,8 +2,8 @@ package com.spring.training;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.training.controller.PersonController;
-import com.spring.training.model.Country;
-import com.spring.training.model.Person;
+import com.spring.training.domain.Country;
+import com.spring.training.domain.Person;
 import com.spring.training.service.PersonService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

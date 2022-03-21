@@ -2,7 +2,7 @@ package com.spring.training.service;
 
 import com.spring.training.entity.PersonEntity;
 import com.spring.training.exception.EntityNotFoundException;
-import com.spring.training.model.Person;
+import com.spring.training.domain.Person;
 import com.spring.training.repository.CountryRepository;
 import com.spring.training.repository.PersonRepository;
 import lombok.AllArgsConstructor;
