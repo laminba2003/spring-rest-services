@@ -4,10 +4,11 @@ import com.spring.training.model.Person;
 import com.spring.training.service.PersonService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("persons")
@@ -18,9 +19,9 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping
-    public List<Person> getPersons() {
-        log.debug("returning the list of persons");
-        return personService.getPersons();
+    public Page<Person> getPersons(Pageable pageable) {
+        log.debug("returning the list of persons with {}", pageable);
+        return personService.getPersons(pageable);
     }
 
     @GetMapping("{id}")

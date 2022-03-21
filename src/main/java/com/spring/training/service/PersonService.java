@@ -10,9 +10,9 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @CacheConfig(cacheNames = "persons")
@@ -22,8 +22,8 @@ public class PersonService {
     private final PersonRepository personRepository;
     private final CountryRepository countryRepository;
 
-    public List<Person> getPersons() {
-        return personRepository.findAll().stream().map(entity -> entity.toPerson()).collect(Collectors.toList());
+    public Page<Person> getPersons(Pageable pageable) {
+        return personRepository.findAll(pageable).map(PersonEntity::toPerson);
     }
 
     @Cacheable(key = "#id")

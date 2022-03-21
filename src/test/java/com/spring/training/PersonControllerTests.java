@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -38,17 +39,21 @@ public class PersonControllerTests {
 
     @Test
     public void testGetPersons() throws Exception {
-        List<Person> persons = getPersons();
-        given(personService.getPersons()).willReturn(getPersons());
-        mockMvc.perform(get("/persons"))
+        List<Person> persons = Arrays.asList(getPerson());
+        Pageable pageable = PageRequest.of(1, 5);
+        Page<Person> page = new PageImpl<>(persons, pageable, persons.size());
+        given(personService.getPersons(pageable)).willReturn(page);
+        mockMvc.perform(get("/persons")
+                .param("page", String.valueOf(pageable.getPageNumber()))
+                .param("size", String.valueOf(pageable.getPageSize())))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].id").value(persons.get(0).getId()))
-                .andExpect(jsonPath("$.[0].firstName").value(persons.get(0).getFirstName()))
-                .andExpect(jsonPath("$.[0].lastName").value(persons.get(0).getLastName()))
-                .andExpect(jsonPath("$.[0].country.name").value(persons.get(0).getCountry().getName()))
-                .andExpect(jsonPath("$.[0].country.capital").value(persons.get(0).getCountry().getCapital()))
-                .andExpect(jsonPath("$.[0].country.population").value(persons.get(0).getCountry().getPopulation()))
+                .andExpect(jsonPath("$.content.[0].id").value(persons.get(0).getId()))
+                .andExpect(jsonPath("$.content.[0].firstName").value(persons.get(0).getFirstName()))
+                .andExpect(jsonPath("$.content.[0].lastName").value(persons.get(0).getLastName()))
+                .andExpect(jsonPath("$.content.[0].country.name").value(persons.get(0).getCountry().getName()))
+                .andExpect(jsonPath("$.content.[0].country.capital").value(persons.get(0).getCountry().getCapital()))
+                .andExpect(jsonPath("$.content.[0].country.population").value(persons.get(0).getCountry().getPopulation()))
                 .andDo(document("getPersons"));
     }
 
@@ -111,10 +116,6 @@ public class PersonControllerTests {
         mockMvc.perform(delete("/persons/{id}", person.getId()))
                 .andExpect(status().isOk())
                 .andDo(document("deletePerson"));
-    }
-
-    private List<Person> getPersons() {
-        return Arrays.asList(getPerson());
     }
 
     private Person getPerson() {

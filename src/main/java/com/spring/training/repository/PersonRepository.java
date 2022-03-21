@@ -1,14 +1,10 @@
 package com.spring.training.repository;
 
 import com.spring.training.entity.PersonEntity;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
-import java.util.List;
 
 @Repository
-public interface PersonRepository extends CrudRepository<PersonEntity, Long> {
-
-    @Override
-    public List<PersonEntity> findAll();
+public interface PersonRepository extends PagingAndSortingRepository<PersonEntity, Long> {
 
 }
