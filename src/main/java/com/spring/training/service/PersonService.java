@@ -7,6 +7,7 @@ import com.spring.training.repository.CountryRepository;
 import com.spring.training.repository.PersonRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,13 @@ public class PersonService {
                     modified.setId(id);
                     return personRepository.save(modified).toPerson();
                 }).orElseThrow(() -> new EntityNotFoundException(String.format("person not found with id = %d", id)));
+    }
+
+    @CacheEvict(key = "#id")
+    public void deletePerson(Long id) {
+        if(personRepository.existsById(id)) {
+            personRepository.deleteById(id);
+        }
     }
 
 }

@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 import java.util.List;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -101,6 +102,15 @@ public class PersonControllerTests {
                 .andExpect(jsonPath("$.country.capital").value(person.getCountry().getCapital()))
                 .andExpect(jsonPath("$.country.population").value(person.getCountry().getPopulation()))
                 .andDo(document("updatePerson"));
+    }
+
+    @Test
+    public void testDeletePerson() throws Exception {
+        Person person = getPerson();
+        doNothing().when(personService).deletePerson(person.getId());
+        mockMvc.perform(delete("/persons/{id}", person.getId()))
+                .andExpect(status().isOk())
+                .andDo(document("deletePerson"));
     }
 
     private List<Person> getPersons() {

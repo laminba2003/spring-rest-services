@@ -7,6 +7,7 @@ import com.spring.training.model.Country;
 import com.spring.training.repository.CountryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -19,37 +20,50 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CountryService {
 
-    private final CountryRepository repository;
+    private final CountryRepository countryRepository;
 
     @Cacheable(key = "#name")
     public Country getCountry(String name) {
-        return repository.findByNameIgnoreCase(name).orElseThrow(() ->
+        return countryRepository.findByNameIgnoreCase(name).orElseThrow(() ->
                 new EntityNotFoundException(String.format("country not found with name = %s", name)))
                 .toCountry();
     }
 
     public List<Country> getCountries() {
-        return repository.findAll().stream()
+        return countryRepository.findAll().stream()
                 .map(entity -> entity.toCountry())
                 .collect(Collectors.toList());
     }
 
     public Country createCountry(Country country) {
-       repository.findByNameIgnoreCase(country.getName())
+       countryRepository.findByNameIgnoreCase(country.getName())
                 .ifPresent(entity -> {
                     throw new RequestException(String.format("the country with name %s is already created", entity.getName()),
                             HttpStatus.CONFLICT);
                 });
-       return repository.save(CountryEntity.fromCountry(country)).toCountry();
+       return countryRepository.save(CountryEntity.fromCountry(country)).toCountry();
     }
 
     @CachePut(key = "#name")
     public Country updateCountry(String name, Country country) {
-        return repository.findByNameIgnoreCase(name)
+        return countryRepository.findByNameIgnoreCase(name)
                 .map(entity -> {
                     CountryEntity modified = CountryEntity.fromCountry(country);
                     modified.setName(name);
-                    return repository.save(modified).toCountry();
+                    return countryRepository.save(modified).toCountry();
                 }).orElseThrow(() -> new EntityNotFoundException(String.format("country not found with name = %s", name)));
     }
+
+    @CacheEvict(key = "#name")
+    public void deleteCountry(String name) {
+        if(countryRepository.existsById(name)) {
+            try {
+                countryRepository.deleteById(name);
+            } catch (Exception e) {
+                throw new RequestException(String.format("the country with name %s cannot be deleted", name),
+                        HttpStatus.CONFLICT);
+            }
+        }
+    }
+
 }

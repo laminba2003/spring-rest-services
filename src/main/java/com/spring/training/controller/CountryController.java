@@ -23,7 +23,7 @@ public class CountryController {
         return countryService.getCountries();
     }
 
-    @GetMapping(path="{name}")
+    @GetMapping("{name}")
     public Country getCountry(@PathVariable("name") String name) {
         log.debug("returning the country with name = {}", name);
         return countryService.getCountry(name);
@@ -40,6 +40,12 @@ public class CountryController {
     public Country updateCountry(@PathVariable("name") String name, @Valid @RequestBody Country country) {
         log.debug("updating country with name = {} and values = {}", name, country);
         return countryService.updateCountry(name, country);
+    }
+
+    @DeleteMapping("{name}")
+    public void deleteCountry(@PathVariable("name") String name) {
+        log.debug("deleting country with name = {}", name);
+        countryService.deleteCountry(name);
     }
 
 }

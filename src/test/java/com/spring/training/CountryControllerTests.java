@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 import java.util.List;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -88,6 +89,15 @@ public class CountryControllerTests {
                 .andExpect(jsonPath("$.capital").value(country.getCapital()))
                 .andExpect(jsonPath("$.population").value(country.getPopulation()))
                 .andDo(document("updateCountry"));
+    }
+
+    @Test
+    public void testDeleteCountry() throws Exception {
+        Country country = getCountry();
+        doNothing().when(countryService).deleteCountry(country.getName());
+        mockMvc.perform(delete("/countries/{name}", country.getName()))
+                .andExpect(status().isOk())
+                .andDo(document("deleteCountry"));
     }
 
     private List<Country> getCountries() {

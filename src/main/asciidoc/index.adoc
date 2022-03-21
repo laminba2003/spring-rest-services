@@ -163,6 +163,15 @@ include::{snippets}/updateCountry/curl-request.adoc[]
 include::{snippets}/updateCountry/http-response.adoc[]
 
 
+=== DeleteCountry
+
+.request
+include::{snippets}/deleteCountry/curl-request.adoc[]
+
+.response
+include::{snippets}/deleteCountry/http-response.adoc[]
+
+
 == Person Controller
 
 [plantuml, GetPersons-class-diagram, png]
@@ -270,3 +279,12 @@ include::{snippets}/updatePerson/curl-request.adoc[]
 
 .response
 include::{snippets}/updatePerson/http-response.adoc[]
+
+
+=== DeletePerson
+
+.request
+include::{snippets}/deletePerson/curl-request.adoc[]
+
+.response
+include::{snippets}/deletePerson/http-response.adoc[]
