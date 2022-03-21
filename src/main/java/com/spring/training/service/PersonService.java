@@ -6,11 +6,15 @@ import com.spring.training.model.Person;
 import com.spring.training.repository.CountryRepository;
 import com.spring.training.repository.PersonRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@CacheConfig(cacheNames = "persons")
 @AllArgsConstructor
 public class PersonService {
 
@@ -21,6 +25,7 @@ public class PersonService {
         return personRepository.findAll().stream().map(entity -> entity.toPerson()).collect(Collectors.toList());
     }
 
+    @Cacheable(key = "#id")
     public Person getPerson(Long id) {
         return personRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(String.format("person not found with id = %s", id)))
@@ -33,6 +38,7 @@ public class PersonService {
         return personRepository.save(PersonEntity.fromPerson(person)).toPerson();
     }
 
+    @CachePut(key = "#id")
     public Person updatePerson(Long id, Person person) {
         person.setCountry(countryRepository.findByNameIgnoreCase(person.getCountry().getName()).orElseThrow(() ->
                 new EntityNotFoundException(String.format("country not found with name = %s", person.getCountry().getName()))).toCountry());

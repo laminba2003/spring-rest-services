@@ -6,17 +6,22 @@ import com.spring.training.exception.RequestException;
 import com.spring.training.model.Country;
 import com.spring.training.repository.CountryRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@CacheConfig(cacheNames = "countries")
 @AllArgsConstructor
 public class CountryService {
 
     private final CountryRepository repository;
 
+    @Cacheable(key = "#name")
     public Country getCountry(String name) {
         return repository.findByNameIgnoreCase(name).orElseThrow(() ->
                 new EntityNotFoundException(String.format("country not found with name = %s", name)))
@@ -38,6 +43,7 @@ public class CountryService {
        return repository.save(CountryEntity.fromCountry(country)).toCountry();
     }
 
+    @CachePut(key = "#name")
     public Country updateCountry(String name, Country country) {
         return repository.findByNameIgnoreCase(name)
                 .map(entity -> {
