@@ -202,7 +202,7 @@ class CountryEntity <<Entity>> {
 interface PersonRepository<PersonEntity, Long> <<Repository>> {
 }
 
-interface CrudRepository<T, ID> {
+interface PagingAndSortingRepository<T, ID> {
 }
 
 class PersonService <<Service>> {
@@ -217,7 +217,7 @@ PersonEntity -> CountryEntity
 CountryEntity ..> Country
 Person -> Country
 PersonRepository ..> PersonEntity
-CrudRepository <|-- PersonRepository
+PagingAndSortingRepository <|-- PersonRepository
 PersonService --> PersonRepository
 PersonController --> PersonService
 

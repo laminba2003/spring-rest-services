@@ -39,7 +39,7 @@ public class PersonController {
 
     @PutMapping("{id}")
     public Person updatePerson(@PathVariable("id") Long id, @Valid @RequestBody Person person) {
-        log.debug("updating person with id = {} and values = {}", person);
+        log.debug("updating person with id = {} and values = {}", id, person);
         return personService.updatePerson(id, person);
     }
 

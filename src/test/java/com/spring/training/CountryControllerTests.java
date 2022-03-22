@@ -37,7 +37,7 @@ public class CountryControllerTests {
 
     @Test
     public void testGetCountries() throws Exception {
-        List<Country> countries = getCountries();
+        List<Country> countries = Arrays.asList(getCountry());
         given(countryService.getCountries()).willReturn(countries);
         mockMvc.perform(get("/countries"))
                 .andExpect(status().isOk())
@@ -98,10 +98,6 @@ public class CountryControllerTests {
         mockMvc.perform(delete("/countries/{name}", country.getName()))
                 .andExpect(status().isOk())
                 .andDo(document("deleteCountry"));
-    }
-
-    private List<Country> getCountries() {
-        return Arrays.asList(getCountry());
     }
 
     private Country getCountry() {
