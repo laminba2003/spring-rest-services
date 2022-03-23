@@ -41,10 +41,10 @@ public class PersonService {
 
     @CachePut(key = "#id")
     public Person updatePerson(Long id, Person person) {
-        person.setCountry(countryRepository.findByNameIgnoreCase(person.getCountry().getName()).orElseThrow(() ->
-                new EntityNotFoundException(String.format("country not found with name = %s", person.getCountry().getName()))).toCountry());
         return personRepository.findById(id)
                 .map(entity -> {
+                    person.setCountry(countryRepository.findByNameIgnoreCase(person.getCountry().getName()).orElseThrow(() ->
+                            new EntityNotFoundException(String.format("country not found with name = %s", person.getCountry().getName()))).toCountry());
                     PersonEntity modified = PersonEntity.fromPerson(person);
                     modified.setId(id);
                     return personRepository.save(modified).toPerson();
