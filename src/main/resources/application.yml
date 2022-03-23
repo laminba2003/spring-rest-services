@@ -3,10 +3,6 @@ server:
 spring:
     application:
         name: spring-training
-    datasource:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jpa:
-            database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     liquibase:
         change-log: classpath:/db/changelog/changelog-master.xml
 
