@@ -49,9 +49,8 @@ public class CountryService {
     public Country updateCountry(String name, Country country) {
         return countryRepository.findByNameIgnoreCase(name)
                 .map(entity -> {
-                    CountryEntity modified = CountryEntity.fromCountry(country);
-                    modified.setName(name);
-                    return countryRepository.save(modified).toCountry();
+                    country.setName(name);
+                    return countryRepository.save(CountryEntity.fromCountry(country)).toCountry();
                 }).orElseThrow(() -> new EntityNotFoundException(String.format("country not found with name = %s", name)));
     }
 

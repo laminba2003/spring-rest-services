@@ -29,11 +29,12 @@ public class PersonService {
     @Cacheable(key = "#id")
     public Person getPerson(Long id) {
         return personRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(String.format("person not found with id = %s", id)))
+                new EntityNotFoundException(String.format("person not found with id = %d", id)))
                 .toPerson();
     }
 
     public Person createPerson(Person person) {
+        person.setId(null);
         person.setCountry(countryRepository.findByNameIgnoreCase(person.getCountry().getName()).orElseThrow(() ->
                 new EntityNotFoundException(String.format("country not found with name = %s", person.getCountry().getName()))).toCountry());
         return personRepository.save(PersonEntity.fromPerson(person)).toPerson();
@@ -43,11 +44,10 @@ public class PersonService {
     public Person updatePerson(Long id, Person person) {
         return personRepository.findById(id)
                 .map(entity -> {
+                    person.setId(id);
                     person.setCountry(countryRepository.findByNameIgnoreCase(person.getCountry().getName()).orElseThrow(() ->
                             new EntityNotFoundException(String.format("country not found with name = %s", person.getCountry().getName()))).toCountry());
-                    PersonEntity modified = PersonEntity.fromPerson(person);
-                    modified.setId(id);
-                    return personRepository.save(modified).toPerson();
+                    return personRepository.save(PersonEntity.fromPerson(person)).toPerson();
                 }).orElseThrow(() -> new EntityNotFoundException(String.format("person not found with id = %d", id)));
     }
 

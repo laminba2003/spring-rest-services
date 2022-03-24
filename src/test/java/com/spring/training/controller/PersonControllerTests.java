@@ -12,7 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
@@ -35,7 +35,7 @@ public class PersonControllerTests {
 
     @Test
     public void testGetPersons() throws Exception {
-        List<Person> persons = Arrays.asList(getPerson());
+        List<Person> persons = Collections.singletonList(getPerson());
         Pageable pageable = PageRequest.of(1, 5);
         Page<Person> page = new PageImpl<>(persons, pageable, persons.size());
         given(personService.getPersons(pageable)).willReturn(page);

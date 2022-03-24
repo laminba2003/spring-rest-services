@@ -23,6 +23,7 @@ public class PersonEntity {
 
     public static PersonEntity fromPerson(Person person) {
         PersonEntity entity = new PersonEntity();
+        entity.setId(person.getId());
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
         entity.setCountry(CountryEntity.fromCountry(person.getCountry()));

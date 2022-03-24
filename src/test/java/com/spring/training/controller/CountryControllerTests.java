@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
@@ -33,7 +33,7 @@ public class CountryControllerTests {
 
     @Test
     public void testGetCountries() throws Exception {
-        List<Country> countries = Arrays.asList(getCountry());
+        List<Country> countries = Collections.singletonList(getCountry());
         given(countryService.getCountries()).willReturn(countries);
         mockMvc.perform(get("/countries"))
                 .andExpect(status().isOk())
