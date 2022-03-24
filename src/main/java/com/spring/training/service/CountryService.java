@@ -23,17 +23,17 @@ public class CountryService {
 
     private final CountryRepository countryRepository;
 
+    public List<Country> getCountries() {
+        return StreamSupport.stream(countryRepository.findAll().spliterator(), false)
+                .map(CountryEntity::toCountry)
+                .collect(Collectors.toList());
+    }
+
     @Cacheable(key = "#name")
     public Country getCountry(String name) {
         return countryRepository.findByNameIgnoreCase(name).orElseThrow(() ->
                 new EntityNotFoundException(String.format("country not found with name = %s", name)))
                 .toCountry();
-    }
-
-    public List<Country> getCountries() {
-        return StreamSupport.stream(countryRepository.findAll().spliterator(), false)
-                .map(CountryEntity::toCountry)
-                .collect(Collectors.toList());
     }
 
     public Country createCountry(Country country) {
