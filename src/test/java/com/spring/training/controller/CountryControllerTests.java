@@ -1,17 +1,14 @@
-package com.spring.training;
+package com.spring.training.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.training.controller.CountryController;
 import com.spring.training.domain.Country;
 import com.spring.training.service.CountryService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +18,6 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@RunWith(SpringRunner.class)
 @WebMvcTest(CountryController.class)
 @AutoConfigureRestDocs(outputDir = "target/snippets", uriPort = 9090)
 public class CountryControllerTests {
