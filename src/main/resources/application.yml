@@ -26,3 +26,7 @@ info:
     application:
         name: spring-training
         version: '@project.version@'
+
+wavefront:
+    application:
+        name: spring-training
