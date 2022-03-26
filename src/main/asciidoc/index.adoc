@@ -130,7 +130,7 @@ countryController -> client: return response as JSON
 ----
 
 .contract
-[source,groovy]
+[source,ruby]
 ----
 include::{snippets}/countries/contracts/getCountries.groovy[]
 ----
@@ -145,7 +145,7 @@ include::{snippets}/countries/getCountries/http-response.adoc[]
 === GetCountry
 
 .contract
-[source,groovy]
+[source,ruby]
 ----
 include::{snippets}/countries/contracts/getCountry.groovy[]
 ----
@@ -160,7 +160,7 @@ include::{snippets}/countries/getCountry/http-response.adoc[]
 === CreateCountry
 
 .contract
-[source,groovy]
+[source,ruby]
 ----
 include::{snippets}/countries/contracts/createCountry.groovy[]
 ----
@@ -174,7 +174,7 @@ include::{snippets}/countries/createCountry/http-response.adoc[]
 === UpdateCountry
 
 .contract
-[source,groovy]
+[source,ruby]
 ----
 include::{snippets}/countries/contracts/updateCountry.groovy[]
 ----
@@ -189,7 +189,7 @@ include::{snippets}/countries/updateCountry/http-response.adoc[]
 === DeleteCountry
 
 .contract
-[source,groovy]
+[source,ruby]
 ----
 include::{snippets}/countries/contracts/deleteCountry.groovy[]
 ----
@@ -276,7 +276,7 @@ personController -> client: return response as JSON
 ----
 
 .contract
-[source,groovy]
+[source,ruby]
 ----
 include::{snippets}/persons/contracts/getPersons.groovy[]
 ----
@@ -291,7 +291,7 @@ include::{snippets}/persons/getPersons/http-response.adoc[]
 === GetPerson
 
 .contract
-[source,groovy]
+[source,ruby]
 ----
 include::{snippets}/persons/contracts/getPerson.groovy[]
 ----
@@ -306,7 +306,7 @@ include::{snippets}/persons/getPerson/http-response.adoc[]
 === CreatePerson
 
 .contract
-[source,groovy]
+[source,ruby]
 ----
 include::{snippets}/persons/contracts/createPerson.groovy[]
 ----
@@ -321,7 +321,7 @@ include::{snippets}/persons/createPerson/http-response.adoc[]
 === UpdatePerson
 
 .contract
-[source,groovy]
+[source,ruby]
 ----
 include::{snippets}/persons/contracts/updatePerson.groovy[]
 ----
@@ -336,7 +336,7 @@ include::{snippets}/persons/updatePerson/http-response.adoc[]
 === DeletePerson
 
 .contract
-[source,groovy]
+[source,ruby]
 ----
 include::{snippets}/persons/contracts/deletePerson.groovy[]
 ----
