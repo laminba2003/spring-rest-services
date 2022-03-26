@@ -1,5 +1,6 @@
 package com.spring.training.service;
 
+import com.spring.training.BaseClass;
 import com.spring.training.domain.Country;
 import com.spring.training.entity.CountryEntity;
 import com.spring.training.exception.EntityNotFoundException;
@@ -23,7 +24,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class CountryServiceTest {
+class CountryServiceTest extends BaseClass {
 
     @Mock
     private CountryRepository countryRepository;
@@ -123,10 +124,6 @@ class CountryServiceTest {
                 .hasMessageContaining(String.format("the country with name %s cannot be deleted", name))
                 .hasFieldOrPropertyWithValue("status", HttpStatus.CONFLICT);
 
-    }
-
-    private Country getCountry() {
-        return new Country("France", "Paris", 1223333677);
     }
 
 }

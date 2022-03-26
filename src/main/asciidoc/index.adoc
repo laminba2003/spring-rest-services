@@ -16,6 +16,7 @@ ifndef::snippets[:snippets: ../../../target/snippets]
 :sectnums:
 :icons: font
 :source-highlighter: highlightjs
+:highlightjs-languages: groovy
 :source-language: asciidoc
 :docinfo: shared-head
 
@@ -128,48 +129,76 @@ countryController -> client: return response as JSON
 
 ----
 
+.contract
+[source,groovy]
+----
+include::{snippets}/countries/contracts/getCountries.groovy[]
+----
 
 .request
-include::{snippets}/getCountries/curl-request.adoc[]
+include::{snippets}/countries/getCountries/curl-request.adoc[]
 
 .response
-include::{snippets}/getCountries/http-response.adoc[]
+include::{snippets}/countries/getCountries/http-response.adoc[]
 
 
 === GetCountry
 
+.contract
+[source,groovy]
+----
+include::{snippets}/countries/contracts/getCountry.groovy[]
+----
+
 .request
-include::{snippets}/getCountry/curl-request.adoc[]
+include::{snippets}/countries/getCountry/curl-request.adoc[]
 
 .response
-include::{snippets}/getCountry/http-response.adoc[]
-
+include::{snippets}/countries/getCountry/http-response.adoc[]
 
 
 === CreateCountry
 
+.contract
+[source,groovy]
+----
+include::{snippets}/countries/contracts/createCountry.groovy[]
+----
+
 .request
-include::{snippets}/createCountry/curl-request.adoc[]
+include::{snippets}/countries/createCountry/curl-request.adoc[]
 
 .response
-include::{snippets}/createCountry/http-response.adoc[]
+include::{snippets}/countries/createCountry/http-response.adoc[]
 
 === UpdateCountry
 
+.contract
+[source,groovy]
+----
+include::{snippets}/countries/contracts/updateCountry.groovy[]
+----
+
 .request
-include::{snippets}/updateCountry/curl-request.adoc[]
+include::{snippets}/countries/updateCountry/curl-request.adoc[]
 
 .response
-include::{snippets}/updateCountry/http-response.adoc[]
+include::{snippets}/countries/updateCountry/http-response.adoc[]
 
 
 === DeleteCountry
 
+.contract
+[source,groovy]
+----
+include::{snippets}/countries/contracts/deleteCountry.groovy[]
+----
+
 .request
-include::{snippets}/deleteCountry/curl-request.adoc[]
+include::{snippets}/countries/deleteCountry/curl-request.adoc[]
 
 .response
-include::{snippets}/deleteCountry/http-response.adoc[]
+include::{snippets}/countries/deleteCountry/http-response.adoc[]
 
 
 == Person Controller
@@ -246,45 +275,74 @@ personController -> client: return response as JSON
 
 ----
 
+.contract
+[source,groovy]
+----
+include::{snippets}/persons/contracts/getPersons.groovy[]
+----
 
 .request
-include::{snippets}/getPersons/curl-request.adoc[]
+include::{snippets}/persons/getPersons/curl-request.adoc[]
 
 .response
-include::{snippets}/getPersons/http-response.adoc[]
+include::{snippets}/persons/getPersons/http-response.adoc[]
 
 
 === GetPerson
 
+.contract
+[source,groovy]
+----
+include::{snippets}/persons/contracts/getPerson.groovy[]
+----
+
 .request
-include::{snippets}/getPerson/curl-request.adoc[]
+include::{snippets}/persons/getPerson/curl-request.adoc[]
 
 .response
-include::{snippets}/getPerson/http-response.adoc[]
+include::{snippets}/persons/getPerson/http-response.adoc[]
 
 
 === CreatePerson
 
+.contract
+[source,groovy]
+----
+include::{snippets}/persons/contracts/createPerson.groovy[]
+----
+
 .request
-include::{snippets}/createPerson/curl-request.adoc[]
+include::{snippets}/persons/createPerson/curl-request.adoc[]
 
 .response
-include::{snippets}/createPerson/http-response.adoc[]
+include::{snippets}/persons/createPerson/http-response.adoc[]
 
 
 === UpdatePerson
 
+.contract
+[source,groovy]
+----
+include::{snippets}/persons/contracts/updatePerson.groovy[]
+----
+
 .request
-include::{snippets}/updatePerson/curl-request.adoc[]
+include::{snippets}/persons/updatePerson/curl-request.adoc[]
 
 .response
-include::{snippets}/updatePerson/http-response.adoc[]
+include::{snippets}/persons/updatePerson/http-response.adoc[]
 
 
 === DeletePerson
 
+.contract
+[source,groovy]
+----
+include::{snippets}/persons/contracts/deletePerson.groovy[]
+----
+
 .request
-include::{snippets}/deletePerson/curl-request.adoc[]
+include::{snippets}/persons/deletePerson/curl-request.adoc[]
 
 .response
-include::{snippets}/deletePerson/http-response.adoc[]
+include::{snippets}/persons/deletePerson/http-response.adoc[]

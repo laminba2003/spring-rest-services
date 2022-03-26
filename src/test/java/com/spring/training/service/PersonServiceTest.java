@@ -1,6 +1,6 @@
 package com.spring.training.service;
 
-import com.spring.training.domain.Country;
+import com.spring.training.BaseClass;
 import com.spring.training.domain.Person;
 import com.spring.training.entity.CountryEntity;
 import com.spring.training.entity.PersonEntity;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class PersonServiceTest {
+class PersonServiceTest extends BaseClass {
 
     @Mock
     private PersonRepository personRepository;
@@ -128,8 +128,4 @@ class PersonServiceTest {
         verify(personRepository).deleteById(any());
     }
 
-    private Person getPerson() {
-        Country country = new Country("France", "Paris", 1223333677);
-        return new Person(1L, "Mamadou Lamine", "Ba", country);
-    }
 }

@@ -1,7 +1,7 @@
 package com.spring.training.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.training.domain.Country;
+import com.spring.training.BaseClass;
 import com.spring.training.domain.Person;
 import com.spring.training.service.PersonService;
 import org.junit.jupiter.api.Test;
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cloud.contract.wiremock.restdocs.SpringCloudContractRestDocs;
 import org.springframework.data.domain.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,8 +22,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(PersonController.class)
-@AutoConfigureRestDocs(outputDir = "target/snippets", uriPort = 9090)
-public class PersonControllerTests {
+@AutoConfigureRestDocs(outputDir = "target/snippets/persons", uriPort = 9090)
+public class PersonControllerTests extends BaseClass {
 
     @Autowired
     private MockMvc mockMvc;
@@ -50,7 +51,8 @@ public class PersonControllerTests {
                 .andExpect(jsonPath("$.content.[0].country.name").value(persons.get(0).getCountry().getName()))
                 .andExpect(jsonPath("$.content.[0].country.capital").value(persons.get(0).getCountry().getCapital()))
                 .andExpect(jsonPath("$.content.[0].country.population").value(persons.get(0).getCountry().getPopulation()))
-                .andDo(document("getPersons"));
+                .andDo(document("getPersons"))
+                .andDo(document("getPersons", SpringCloudContractRestDocs.dslContract()));
     }
 
     @Test
@@ -66,7 +68,8 @@ public class PersonControllerTests {
                 .andExpect(jsonPath("$.country.name").value(person.getCountry().getName()))
                 .andExpect(jsonPath("$.country.capital").value(person.getCountry().getCapital()))
                 .andExpect(jsonPath("$.country.population").value(person.getCountry().getPopulation()))
-                .andDo(document("getPerson"));
+                .andDo(document("getPerson"))
+                .andDo(document("getPerson", SpringCloudContractRestDocs.dslContract()));
     }
 
     @Test
@@ -84,7 +87,8 @@ public class PersonControllerTests {
                 .andExpect(jsonPath("$.country.name").value(person.getCountry().getName()))
                 .andExpect(jsonPath("$.country.capital").value(person.getCountry().getCapital()))
                 .andExpect(jsonPath("$.country.population").value(person.getCountry().getPopulation()))
-                .andDo(document("createPerson"));
+                .andDo(document("createPerson"))
+                .andDo(document("createPerson", SpringCloudContractRestDocs.dslContract()));
     }
 
     @Test
@@ -102,7 +106,8 @@ public class PersonControllerTests {
                 .andExpect(jsonPath("$.country.name").value(person.getCountry().getName()))
                 .andExpect(jsonPath("$.country.capital").value(person.getCountry().getCapital()))
                 .andExpect(jsonPath("$.country.population").value(person.getCountry().getPopulation()))
-                .andDo(document("updatePerson"));
+                .andDo(document("updatePerson"))
+                .andDo(document("updatePerson", SpringCloudContractRestDocs.dslContract()));
     }
 
     @Test
@@ -111,12 +116,8 @@ public class PersonControllerTests {
         doNothing().when(personService).deletePerson(person.getId());
         mockMvc.perform(delete("/persons/{id}", person.getId()))
                 .andExpect(status().isOk())
-                .andDo(document("deletePerson"));
-    }
-
-    private Person getPerson() {
-        Country country = new Country("France", "Paris", 1223333677);
-        return new Person(1L, "Mamadou Lamine", "Ba", country);
+                .andDo(document("deletePerson"))
+                .andDo(document("deletePerson", SpringCloudContractRestDocs.dslContract()));
     }
 
 }
