@@ -15,17 +15,15 @@ public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken>
     @Override
     public AbstractAuthenticationToken convert(Jwt jwt) {
         List<GrantedAuthority> authorities = jwt.getClaimAsStringList("roles").stream().
-                map(role -> new SimpleGrantedAuthority("ROLE_"+role))
+                map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(Collectors.toList());
         return new UsernamePasswordAuthenticationToken(createUser(jwt), null, authorities);
     }
 
     private User createUser(Jwt jwt) {
-        User user = new User();
-        user.setFirstName(jwt.getClaim("given_name"));
-        user.setLastName(jwt.getClaim("family_name"));
-        user.setEmail(jwt.getClaim("email"));
-        return user;
+        return new User(jwt.getClaim("given_name"),
+                jwt.getClaim("family_name"),
+                jwt.getClaim("email"));
     }
 
 }
