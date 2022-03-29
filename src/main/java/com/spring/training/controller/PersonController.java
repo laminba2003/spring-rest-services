@@ -1,12 +1,15 @@
 package com.spring.training.controller;
 
+import com.spring.training.annotation.IsAdmin;
 import com.spring.training.domain.Person;
+import com.spring.training.domain.User;
 import com.spring.training.service.PersonService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
@@ -32,20 +35,25 @@ public class PersonController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Person createPerson(@Valid @RequestBody Person person) {
-        log.debug("creating person with values = {}", person);
+    @IsAdmin
+    public Person createPerson(Authentication authentication, @Valid @RequestBody Person person) {
+        User user = (User) authentication.getPrincipal();
+        log.debug("creating person with values = {} and user : {}", person, user.getEmail());
         return personService.createPerson(person);
     }
 
     @PutMapping("{id}")
-    public Person updatePerson(@PathVariable("id") Long id, @Valid @RequestBody Person person) {
-        log.debug("updating person with id = {} and values = {}", id, person);
+    @IsAdmin
+    public Person updatePerson(Authentication authentication, @PathVariable("id") Long id, @Valid @RequestBody Person person) {
+        User user = (User) authentication.getPrincipal();
+        log.debug("updating person with id = {}, values = {} and user : {}", id, person, user.getEmail());
         return personService.updatePerson(id, person);
     }
 
     @DeleteMapping("{id}")
-    public void deletePerson(@PathVariable("id") Long id) {
-        log.debug("deleting person with id = {}", id);
+    public void deletePerson(Authentication authentication, @PathVariable("id") Long id) {
+        User user = (User) authentication.getPrincipal();
+        log.debug("deleting person with id = {} and user : {}", id, user.getEmail());
         personService.deletePerson(id);
     }
 

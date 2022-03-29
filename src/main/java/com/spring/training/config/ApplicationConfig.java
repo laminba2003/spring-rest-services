@@ -1,4 +1,4 @@
-package com.spring.training;
+package com.spring.training.config;
 
 import brave.context.log4j2.ThreadContextScopeDecorator;
 import brave.propagation.CurrentTraceContext;

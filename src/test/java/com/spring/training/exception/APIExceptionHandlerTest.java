@@ -72,7 +72,6 @@ public class APIExceptionHandlerTest {
                 .willAnswer(invocationOnMock -> {
                     throw exception;
                 });
-
         mockMvc.perform(get("/persons/{id}", 1L))
                 .andExpect(status().isBadRequest());
     }

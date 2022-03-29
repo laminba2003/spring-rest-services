@@ -1,4 +1,4 @@
-package com.spring.training;
+package com.spring.training.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;

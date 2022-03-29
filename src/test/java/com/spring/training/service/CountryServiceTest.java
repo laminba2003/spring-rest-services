@@ -1,6 +1,6 @@
 package com.spring.training.service;
 
-import com.spring.training.BaseClass;
+import com.spring.training.BaseTestClass;
 import com.spring.training.domain.Country;
 import com.spring.training.entity.CountryEntity;
 import com.spring.training.exception.EntityNotFoundException;
@@ -24,7 +24,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class CountryServiceTest extends BaseClass {
+class CountryServiceTest extends BaseTestClass {
 
     @Mock
     private CountryRepository countryRepository;

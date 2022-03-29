@@ -1,7 +1,7 @@
 package com.spring.training.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.training.BaseClass;
+import com.spring.training.BaseTestClass;
 import com.spring.training.domain.Country;
 import com.spring.training.service.CountryService;
 import org.junit.jupiter.api.Test;
@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.restdocs.SpringCloudContractRestDocs;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(CountryController.class)
 @AutoConfigureRestDocs(outputDir = "target/snippets/countries", uriPort = 9090)
-public class CountryControllerTests extends BaseClass {
+public class CountryControllerTests extends BaseTestClass {
 
     @Autowired
     private MockMvc mockMvc;
@@ -34,10 +35,12 @@ public class CountryControllerTests extends BaseClass {
     private ObjectMapper objectMapper;
 
     @Test
+    @WithMockUser
     public void testGetCountries() throws Exception {
         List<Country> countries = Collections.singletonList(getCountry());
         given(countryService.getCountries()).willReturn(countries);
-        mockMvc.perform(get("/countries"))
+        mockMvc.perform(get("/countries")
+                .header("authorization", getToken()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[0].name").value(countries.get(0).getName()))
@@ -48,10 +51,12 @@ public class CountryControllerTests extends BaseClass {
     }
 
     @Test
+    @WithMockUser
     public void testGetCountry() throws Exception {
         Country country = getCountry();
         given(countryService.getCountry(country.getName())).willReturn(country);
-        mockMvc.perform(get("/countries/{name}", country.getName()))
+        mockMvc.perform(get("/countries/{name}", country.getName())
+                .header("authorization", getToken()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.name").value(country.getName()))
@@ -62,10 +67,12 @@ public class CountryControllerTests extends BaseClass {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testCreateCountry() throws Exception {
         Country country = getCountry();
         given(countryService.createCountry(country)).willReturn(country);
         mockMvc.perform(post("/countries")
+                .header("authorization", getToken())
                 .content(objectMapper.writeValueAsString(country))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
@@ -78,10 +85,12 @@ public class CountryControllerTests extends BaseClass {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testUpdateCountry() throws Exception {
         Country country = getCountry();
         given(countryService.updateCountry(country.getName(), country)).willReturn(country);
         mockMvc.perform(put("/countries/{name}", country.getName())
+                .header("authorization", getToken())
                 .content(objectMapper.writeValueAsString(country))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -94,10 +103,12 @@ public class CountryControllerTests extends BaseClass {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testDeleteCountry() throws Exception {
         Country country = getCountry();
         doNothing().when(countryService).deleteCountry(country.getName());
-        mockMvc.perform(delete("/countries/{name}", country.getName()))
+        mockMvc.perform(delete("/countries/{name}", country.getName())
+                .header("authorization", getToken()))
                 .andExpect(status().isOk())
                 .andDo(document("deleteCountry"))
                 .andDo(document("deleteCountry", SpringCloudContractRestDocs.dslContract()));

@@ -14,7 +14,7 @@
     <name>Spring Rest Services</name>
     <description>Rest Services for Spring Boot</description>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>8</java.version>
         <docker.user/>
         <docker.token/>
     </properties>
@@ -119,9 +119,17 @@
             <version>42.3.3</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-contract-wiremock</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
         </dependency>
     </dependencies>
 
@@ -208,6 +216,12 @@
                         <configuration>
                             <outputDirectory>${basedir}/target/stubs/contracts/${project.groupId}/${project.artifactId}</outputDirectory>
                             <resources>
+                                <resource>
+                                    <directory>${basedir}/target/snippets/countries/stubs</directory>
+                                    <includes>
+                                        <include>**/*.json</include>
+                                    </includes>
+                                </resource>
                                 <resource>
                                     <directory>${basedir}/target/snippets/persons/stubs</directory>
                                     <includes>

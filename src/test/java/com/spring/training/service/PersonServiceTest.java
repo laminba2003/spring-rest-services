@@ -1,6 +1,6 @@
 package com.spring.training.service;
 
-import com.spring.training.BaseClass;
+import com.spring.training.BaseTestClass;
 import com.spring.training.domain.Person;
 import com.spring.training.entity.CountryEntity;
 import com.spring.training.entity.PersonEntity;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class PersonServiceTest extends BaseClass {
+class PersonServiceTest extends BaseTestClass {
 
     @Mock
     private PersonRepository personRepository;
