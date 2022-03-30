@@ -2,7 +2,9 @@ package com.spring.training;
 
 import com.spring.training.domain.Country;
 import com.spring.training.domain.Person;
+import org.springframework.context.annotation.Import;
 
+@Import(TestSecurityConfig.class)
 public abstract class BaseTestClass {
 
     protected Person getPerson() {

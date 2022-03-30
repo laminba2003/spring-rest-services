@@ -58,12 +58,24 @@ package com.spring.training.controller {
     class PersonController
 }
 
+package com.spring.training.config {
+    class ApplicationConfig
+    class JwtConverter
+    class RedisConfig
+    class SecurityConfig
+}
+
+
+package com.spring.training.annotation {
+    interface IsAdmin
+}
 
 com.spring.training.entity ..> com.spring.training.domain
 com.spring.training.repository ..> com.spring.training.entity
 com.spring.training.service ..> com.spring.training.repository
 com.spring.training.service ..> com.spring.training.exception
 com.spring.training.controller ..> com.spring.training.service
+com.spring.training.controller ..> com.spring.training.annotation
 
 ----
 

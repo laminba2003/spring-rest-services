@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.restdocs.SpringCloudContractRestDocs;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +34,6 @@ public class CountryControllerTests extends BaseTestClass {
     private ObjectMapper objectMapper;
 
     @Test
-    @WithMockUser
     public void testGetCountries() throws Exception {
         List<Country> countries = Collections.singletonList(getCountry());
         given(countryService.getCountries()).willReturn(countries);
@@ -51,7 +49,6 @@ public class CountryControllerTests extends BaseTestClass {
     }
 
     @Test
-    @WithMockUser
     public void testGetCountry() throws Exception {
         Country country = getCountry();
         given(countryService.getCountry(country.getName())).willReturn(country);
@@ -67,7 +64,6 @@ public class CountryControllerTests extends BaseTestClass {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
     public void testCreateCountry() throws Exception {
         Country country = getCountry();
         given(countryService.createCountry(country)).willReturn(country);
@@ -85,7 +81,6 @@ public class CountryControllerTests extends BaseTestClass {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
     public void testUpdateCountry() throws Exception {
         Country country = getCountry();
         given(countryService.updateCountry(country.getName(), country)).willReturn(country);
@@ -103,7 +98,6 @@ public class CountryControllerTests extends BaseTestClass {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
     public void testDeleteCountry() throws Exception {
         Country country = getCountry();
         doNothing().when(countryService).deleteCountry(country.getName());

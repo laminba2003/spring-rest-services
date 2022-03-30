@@ -12,7 +12,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.restdocs.SpringCloudContractRestDocs;
 import org.springframework.data.domain.*;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.Collections;
 import java.util.List;
@@ -36,7 +35,6 @@ public class PersonControllerTests extends BaseTestClass {
     private ObjectMapper objectMapper;
 
     @Test
-    @WithMockUser
     public void testGetPersons() throws Exception {
         List<Person> persons = Collections.singletonList(getPerson());
         Pageable pageable = PageRequest.of(1, 5);
@@ -59,7 +57,6 @@ public class PersonControllerTests extends BaseTestClass {
     }
 
     @Test
-    @WithMockUser
     public void testGetPerson() throws Exception {
         Person person = getPerson();
         given(personService.getPerson(person.getId())).willReturn(person);
@@ -78,7 +75,6 @@ public class PersonControllerTests extends BaseTestClass {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
     public void testCreatePerson() throws Exception {
         Person person = getPerson();
         given(personService.createPerson(person)).willReturn(person);
@@ -99,7 +95,6 @@ public class PersonControllerTests extends BaseTestClass {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
     public void testUpdatePerson() throws Exception {
         Person person = getPerson();
         given(personService.updatePerson(person.getId(), person)).willReturn(person);
@@ -120,7 +115,6 @@ public class PersonControllerTests extends BaseTestClass {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
     public void testDeletePerson() throws Exception {
         Person person = getPerson();
         doNothing().when(personService).deletePerson(person.getId());
