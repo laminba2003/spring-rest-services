@@ -7,3 +7,8 @@ spring:
       cache-null-values: false
       time-to-live: 40000
     type: redis
+
+management:
+  health:
+    redis:
+      enabled: true

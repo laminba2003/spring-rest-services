@@ -215,9 +215,9 @@
                         </goals>
                         <configuration>
                             <target>
-                                <copy todir="${basedir}/target/stubs/contracts/${project.groupId}/${project.artifactId}" flatten="true">
-                                    <fileset dir="${basedir}/target/snippets">
-                                        <include name="**/*.json"/>
+                                <copy  todir="${basedir}/target/stubs/contracts/${project.groupId}/${project.artifactId}" flatten="true">
+                                    <fileset dir="${basedir}/target">
+                                        <include name="snippets/**/*.json"/>
                                     </fileset>
                                 </copy>
                             </target>

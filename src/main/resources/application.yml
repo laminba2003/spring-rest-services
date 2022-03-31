@@ -22,6 +22,14 @@ management:
         env:
             enabled: true
 
+    endpoint:
+      health:
+        show-details: ALWAYS
+
+    health:
+        redis:
+          enabled: false
+
 info:
     application:
         name: spring-training
