@@ -29,6 +29,8 @@ management:
     health:
         redis:
           enabled: false
+        probes:
+            enabled: true
 
 info:
     application:
