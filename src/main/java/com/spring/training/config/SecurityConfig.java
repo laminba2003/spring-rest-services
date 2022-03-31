@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests(authentication -> authentication
                         .antMatchers("/error").permitAll()
+                        .antMatchers("/actuator/**").permitAll()
                         .antMatchers("/**").authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt().jwtAuthenticationConverter(new JwtConverter()))
                 .cors().and().csrf().disable().sessionManagement()
