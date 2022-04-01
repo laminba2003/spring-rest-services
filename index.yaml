@@ -1,3 +1,14 @@
 apiVersion: v1
-entries: {}
-generated: "2022-04-01T08:17:08.329165376Z"
+entries:
+  spring-rest:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-04-01T16:41:27.122801334Z"
+    description: A Helm chart for Kubernetes
+    digest: a7a36328255ae2e541b2f01b9c59fbf582aec6dc59f2dfd4ec51bbd875576e36
+    name: spring-rest
+    type: application
+    urls:
+    - https://github.com/laminba2003/spring-rest-services/releases/download/spring-rest-0.1.0/spring-rest-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-04-01T16:41:27.122812734Z"
