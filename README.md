@@ -14,8 +14,6 @@ This is a simple SpringBoot Rest Service built around these capabilities :
 - Documentation with Spring REST Docs and OpenAPI 
 - CI/CD with Github actions
 
-You can find the code source [here](https://github.com/laminba2003/spring-rest-services).
-
 ### Developer Guide
 
 You can read the developer guide [here](https://spring-documentation.netlify.app/) 
