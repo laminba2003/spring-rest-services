@@ -1,14 +1,3 @@
 apiVersion: v1
-entries:
-  deployment:
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2022-04-01T08:05:42.537004772Z"
-    description: A Helm chart for Kubernetes
-    digest: 0254d9c11caa3c0e57ee44566b98ff1a3c6440edf351e08f73b9921cc4f830c2
-    name: deployment
-    type: application
-    urls:
-    - https://github.com/laminba2003/spring-rest-services/releases/download/deployment-0.1.0/deployment-0.1.0.tgz
-    version: 0.1.0
+entries: {}
 generated: "2022-04-01T08:05:42.537057172Z"
