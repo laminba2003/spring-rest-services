@@ -144,6 +144,12 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                         </exclude>
+                        <exclude>
+                            <dependency>
+                                <groupId>com.h2database</groupId>
+                                <artifactId>h2</artifactId>
+                            </dependency>
+                        </exclude>
                     </excludes>
                     <image>
                         <name>laminba2003/${project.artifactId}:${project.version}</name>
