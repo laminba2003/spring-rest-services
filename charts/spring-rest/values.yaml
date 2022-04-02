@@ -62,6 +62,18 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+api:
+  configuration:
+    datasource:
+      url: "jdbc:mysql://mysql/spring_training?enabledTLSProtocols=TLSv1.2"
+      username: cm9vdA==
+      password: cGFzc2Vy
+    jwt:
+      issuer: "http://idp/auth/realms/example"
+      jwk: "http://idp/auth/realms/example/protocol/openid-connect/certs"
+    wavefront:
+      token: YThlYzY3MGUtNjc1OS00YWUzLWE0MzUtOTNjY2Y2ODNlZTIy
+
 nodeSelector: {}
 
 tolerations: []
