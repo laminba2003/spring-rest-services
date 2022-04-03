@@ -5,6 +5,7 @@
 This is a simple SpringBoot Rest Service built around these capabilities :
 
 - Persistence with JPA
+- Caching with Redis
 - Exception Handling
 - Logging with log4j2
 - Oauth2 Security
