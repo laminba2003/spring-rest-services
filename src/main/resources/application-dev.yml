@@ -9,5 +9,4 @@ spring:
         oauth2:
             resourceserver:
                 jwt:
-                    issuer-uri: http://localhost:8083/auth/realms/example
-                    jwk-set-uri: http://localhost:8083/auth/realms/example/protocol/openid-connect/certs
+                    jwk-set-uri: http://localhost/auth/realms/training/protocol/openid-connect/certs

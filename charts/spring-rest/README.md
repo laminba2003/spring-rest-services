@@ -1,4 +1,4 @@
-# Spring REST Helm Chart
+# SpringBoot REST Service Helm Chart
 
 ## Introduction
 
@@ -53,8 +53,10 @@ Parameter | Description | Default
 `api.configuration.datasource.url` | the mysql datasource url | `jdbc:mysql://mysql/spring_training?enabledTLSProtocols=TLSv1.2`
 `api.configuration.datasource.username` | the mysql user name | `cm9vdA==`
 `api.configuration.datasource.password` | the mysql user password | `cGFzc2Vy`
-`api.configuration.jwt.issuer` | the jwt issuer url | `http://idp/auth/realms/example`
-`api.configuration.jwt.jwk` | the jwt key set url | `http://idp/auth/realms/example/protocol/openid-connect/certs`
+`api.configuration.jwt.jwk` | the jwt key set url | `http://keycloak/auth/realms/training/protocol/openid-connect/certs`
+`api.configuration.redis.host` | redis url | `redis-master`
+`api.configuration.redis.port` | redis port | `6379`
+`api.configuration.redis.password` | redis password | `cGFzc2Vy`
 `api.wavefront.token` | the wavefront api token | `YThlYzY3MGUtNjc1OS00YWUzLWE0MzUtOTNjY2Y2ODNlZTIy`
 
 

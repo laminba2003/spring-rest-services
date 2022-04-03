@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,10 @@ public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken>
 
     @Override
     public AbstractAuthenticationToken convert(Jwt jwt) {
-        List<GrantedAuthority> authorities = jwt.getClaimAsStringList("roles").stream().
+        List<String> roles = jwt.getClaimAsStringList("roles");
+        List<GrantedAuthority> authorities = roles != null ? roles.stream().
                 map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()) : new ArrayList<>();
         return new UsernamePasswordAuthenticationToken(createUser(jwt), null, authorities);
     }
 

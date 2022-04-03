@@ -1,11 +1,16 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-configmap
+  name: {{ include "deployment.fullname" . }}
 data:
   management.metrics.export.wavefront.uri: https://wavefront.surf
   spring.datasource.url: {{ .Values.api.configuration.datasource.url }}
   spring.jpa.database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-  spring.security.oauth2.resourceserver.jwt.issuer-uri: {{ .Values.api.configuration.jwt.issuer }}
   spring.security.oauth2.resourceserver.jwt.jwk-set-uri: {{ .Values.api.configuration.jwt.jwk }}
+  spring.redis.host: {{ .Values.api.configuration.redis.host }}
+  spring.redis.port: "{{ .Values.api.configuration.redis.port }}"
+  spring.cache.redis.cache-null-values: "false"
+  spring.cache.redis.time-to-live: "40000"
+  spring.cache.type: redis
   management.health.probes.enabled: "true"
+  management.health.redis.enabled: "true"

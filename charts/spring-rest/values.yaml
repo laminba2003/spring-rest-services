@@ -69,10 +69,13 @@ api:
       username: cm9vdA==
       password: cGFzc2Vy
     jwt:
-      issuer: "http://idp/auth/realms/example"
-      jwk: "http://idp/auth/realms/example/protocol/openid-connect/certs"
+      jwk: "http://keycloak/auth/realms/training/protocol/openid-connect/certs"
     wavefront:
       token: YThlYzY3MGUtNjc1OS00YWUzLWE0MzUtOTNjY2Y2ODNlZTIy
+    redis:
+      host: redis-master
+      port: 6379
+      password: cGFzc2Vy
 
 nodeSelector: {}
 
