@@ -4,6 +4,20 @@
 
 This chart bootstraps a [SpringBoot REST Service](https://github.com/laminba2003/spring-rest-services) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
+## Features
+
+This simple SpringBoot Rest Service is built around these capabilities :
+
+- Persistence with JPA and Spring Data
+- Data Migration with Liquibase
+- Caching with Redis
+- Exception Handling
+- Logging with log4j2
+- Oauth2 Security with OpenId connect
+- Monitoring and Observability with Micrometer and Wavefront
+- Distributed Tracing with Sleuth
+
+
 ## Installing the Chart
 
 To install the chart with the release name `my-release`:

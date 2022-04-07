@@ -4,11 +4,12 @@
 
 This is a simple SpringBoot Rest Service built around these capabilities :
 
-- Persistence with JPA
+- Persistence with JPA and Spring Data
+- Data Migration with Liquibase
 - Caching with Redis
 - Exception Handling
 - Logging with log4j2
-- Oauth2 Security
+- Oauth2 Security with OpenId connect
 - Stubs generation with Spring Cloud Contract
 - Monitoring and Observability with Micrometer and Wavefront
 - Distributed Tracing with Sleuth

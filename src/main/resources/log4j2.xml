@@ -15,7 +15,6 @@
                      filePattern="./logs/$${date:yyyy-MM}/spring-training-%d{-dd-MMMM-yyyy}-%i.log.gz">
             <PatternLayout pattern="${sys:LOG_PATTERN}"/>
             <Policies>
-                <OnStartupTriggeringPolicy />
                 <SizeBasedTriggeringPolicy
                         size="40 MB" />
                 <TimeBasedTriggeringPolicy />

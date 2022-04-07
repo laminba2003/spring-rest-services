@@ -49,7 +49,7 @@ class PersonServiceTest extends BaseTestClass {
         given(personRepository.findAll(pageable)).willReturn(page);
         Page<Person> result = personService.getPersons(pageable);
         verify(personRepository).findAll(pageable);
-        assertThat(result.toList().size()).isEqualTo(persons.size());
+        assertThat(result.getContent().size()).isEqualTo(persons.size());
     }
 
     @Test
