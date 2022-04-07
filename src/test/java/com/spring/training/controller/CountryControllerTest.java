@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(CountryController.class)
 @AutoConfigureRestDocs(outputDir = "target/snippets/countries", uriPort = 9090)
-public class CountryControllerTests extends BaseTestClass {
+public class CountryControllerTest extends BaseTestClass {
 
     @Autowired
     private MockMvc mockMvc;

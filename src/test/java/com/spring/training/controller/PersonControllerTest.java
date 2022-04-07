@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(PersonController.class)
 @AutoConfigureRestDocs(outputDir = "target/snippets/persons", uriPort = 9090)
-public class PersonControllerTests extends BaseTestClass {
+public class PersonControllerTest extends BaseTestClass {
 
     @Autowired
     private MockMvc mockMvc;
