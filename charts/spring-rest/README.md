@@ -13,7 +13,7 @@ This simple SpringBoot Rest Service is built around these capabilities :
 - Caching with Redis
 - Exception Handling
 - Logging with log4j2
-- Oauth2 Security with OpenId connect
+- Oauth2 Security with OIDC
 - Monitoring and Observability with Micrometer and Wavefront
 - Distributed Tracing with Sleuth
 
