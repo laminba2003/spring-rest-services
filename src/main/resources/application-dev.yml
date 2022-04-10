@@ -10,3 +10,7 @@ spring:
             resourceserver:
                 jwt:
                     jwk-set-uri: http://localhost/auth/realms/training/protocol/openid-connect/certs
+
+
+logging:
+    config: classpath:log4j2-dev.xml

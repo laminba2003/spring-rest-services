@@ -10,13 +10,6 @@
         <Console name="Console" target="SYSTEM_OUT" follow="true">
             <PatternLayout pattern="${sys:LOG_PATTERN}"/>
         </Console>
-       <Console name="Console_JSON" target="SYSTEM_OUT" follow="true">
-           <JsonLayout complete="false" compact="false">
-               <KeyValuePair key="service" value="spring-training"/>
-               <KeyValuePair key="traceId" value="$${ctx:traceId}"/>
-               <KeyValuePair key="spanId" value="$${ctx:spanId}"/>
-           </JsonLayout>
-       </Console>
     </Appenders>
 
     <Loggers>
@@ -24,13 +17,7 @@
             <AppenderRef ref="Console" />
         </Root>
 
-        <Logger name="com.spring.training.controller" level="debug" additivity="false">
-            <AppenderRef ref="Console_JSON" />
-        </Logger>
-
-        <Logger name="com.spring.training.service" level="debug" additivity="false">
-            <AppenderRef ref="Console_JSON" />
-        </Logger>
+        <Logger name="com.spring.training" level="debug"/>
 
     </Loggers>
 
