@@ -4,6 +4,7 @@ import com.spring.training.entity.CountryEntity;
 import com.spring.training.exception.EntityNotFoundException;
 import com.spring.training.exception.RequestException;
 import com.spring.training.domain.Country;
+import com.spring.training.mapping.CountryMapper;
 import com.spring.training.repository.CountryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
@@ -22,18 +23,18 @@ import java.util.stream.StreamSupport;
 public class CountryService {
 
     private final CountryRepository countryRepository;
+    private final CountryMapper countryMapper;
 
     public List<Country> getCountries() {
         return StreamSupport.stream(countryRepository.findAll().spliterator(), false)
-                .map(CountryEntity::toCountry)
+                .map(countryMapper::toCountry)
                 .collect(Collectors.toList());
     }
 
     @Cacheable(key = "#name")
     public Country getCountry(String name) {
-        return countryRepository.findByNameIgnoreCase(name).orElseThrow(() ->
-                new EntityNotFoundException(String.format("country not found with name = %s", name)))
-                .toCountry();
+        return countryMapper.toCountry(countryRepository.findByNameIgnoreCase(name).orElseThrow(() ->
+                new EntityNotFoundException(String.format("country not found with name = %s", name))));
     }
 
     public Country createCountry(Country country) {
@@ -42,7 +43,8 @@ public class CountryService {
                     throw new RequestException(String.format("the country with name %s is already created", entity.getName()),
                             HttpStatus.CONFLICT);
                 });
-       return countryRepository.save(CountryEntity.fromCountry(country)).toCountry();
+       return countryMapper.toCountry(
+               countryRepository.save(countryMapper.fromCountry(country)));
     }
 
     @CachePut(key = "#name")
@@ -50,7 +52,8 @@ public class CountryService {
         return countryRepository.findByNameIgnoreCase(name)
                 .map(entity -> {
                     country.setName(name);
-                    return countryRepository.save(CountryEntity.fromCountry(country)).toCountry();
+                    return countryMapper.toCountry(
+                            countryRepository.save(countryMapper.fromCountry(country)));
                 }).orElseThrow(() -> new EntityNotFoundException(String.format("country not found with name = %s", name)));
     }
 

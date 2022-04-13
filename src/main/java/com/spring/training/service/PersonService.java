@@ -1,8 +1,8 @@
 package com.spring.training.service;
 
-import com.spring.training.entity.PersonEntity;
-import com.spring.training.exception.EntityNotFoundException;
 import com.spring.training.domain.Person;
+import com.spring.training.exception.EntityNotFoundException;
+import com.spring.training.mapping.PersonMapper;
 import com.spring.training.repository.CountryRepository;
 import com.spring.training.repository.PersonRepository;
 import lombok.AllArgsConstructor;
@@ -21,33 +21,33 @@ public class PersonService {
 
     private final PersonRepository personRepository;
     private final CountryRepository countryRepository;
+    private final PersonMapper personMapper;
 
     public Page<Person> getPersons(Pageable pageable) {
-        return personRepository.findAll(pageable).map(PersonEntity::toPerson);
+        return personRepository.findAll(pageable).map(personMapper::toPerson);
     }
 
     @Cacheable(key = "#id")
     public Person getPerson(Long id) {
-        return personRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(String.format("person not found with id = %d", id)))
-                .toPerson();
+        return personMapper.toPerson(personRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(String.format("person not found with id = %d", id))));
     }
 
     public Person createPerson(Person person) {
+        countryRepository.findByNameIgnoreCase(person.getCountry().getName()).orElseThrow(() ->
+                new EntityNotFoundException(String.format("country not found with name = %s", person.getCountry().getName())));
         person.setId(null);
-        person.setCountry(countryRepository.findByNameIgnoreCase(person.getCountry().getName()).orElseThrow(() ->
-                new EntityNotFoundException(String.format("country not found with name = %s", person.getCountry().getName()))).toCountry());
-        return personRepository.save(PersonEntity.fromPerson(person)).toPerson();
+        return personMapper.toPerson(personRepository.save(personMapper.fromPerson(person)));
     }
 
     @CachePut(key = "#id")
     public Person updatePerson(Long id, Person person) {
         return personRepository.findById(id)
                 .map(entity -> {
+                    countryRepository.findByNameIgnoreCase(person.getCountry().getName()).orElseThrow(() ->
+                            new EntityNotFoundException(String.format("country not found with name = %s", person.getCountry().getName())));
                     person.setId(id);
-                    person.setCountry(countryRepository.findByNameIgnoreCase(person.getCountry().getName()).orElseThrow(() ->
-                            new EntityNotFoundException(String.format("country not found with name = %s", person.getCountry().getName()))).toCountry());
-                    return personRepository.save(PersonEntity.fromPerson(person)).toPerson();
+                    return personMapper.toPerson(personRepository.save(personMapper.fromPerson(person)));
                 }).orElseThrow(() -> new EntityNotFoundException(String.format("person not found with id = %d", id)));
     }
 
