@@ -36,6 +36,11 @@ package com.spring.training.entity {
     class PersonEntity
 }
 
+package com.spring.training.annotation {
+    class CountryMapper
+    class PersonMapper
+}
+
 package com.spring.training.repository {
     interface CountryRepository
     interface PersonRepository
@@ -70,10 +75,12 @@ package com.spring.training.annotation {
     interface IsAdmin
 }
 
-com.spring.training.entity ..> com.spring.training.domain
+com.spring.training.mapping ..> com.spring.training.domain
+com.spring.training.mapping ..> com.spring.training.entity
 com.spring.training.repository ..> com.spring.training.entity
 com.spring.training.service ..> com.spring.training.repository
 com.spring.training.service ..> com.spring.training.exception
+com.spring.training.service ..> com.spring.training.mapping
 com.spring.training.controller ..> com.spring.training.service
 com.spring.training.controller ..> com.spring.training.annotation
 
@@ -94,7 +101,6 @@ class CountryEntity <<Entity>> {
   + name: String
   + capital: String
   + population: Integer
-  + Country toCountry()
 }
 
 interface CountryRepository<CountryEntity, String> <<Repository>> {
@@ -109,12 +115,12 @@ class CountryService <<Service>> {
 class CountryController <<Controller>> {
 }
 
-
-CountryEntity ..> Country
 CountryRepository ..> CountryEntity
 CrudRepository <|-- CountryRepository
 CountryService --> CountryRepository
 CountryController --> CountryService
+CountryController ..> Country
+CountryService ..> Country
 
 ----
 
@@ -232,11 +238,9 @@ class PersonEntity <<Entity>> {
   + String firstName
   + String lastName
   + CountryEntry country
-  + Person toPerson()
 }
 
 class CountryEntity <<Entity>> {
-  + Country toCountry()
 }
 
 
@@ -253,14 +257,14 @@ class PersonController <<Controller>> {
 }
 
 
-PersonEntity ..> Person
 PersonEntity -> CountryEntity
-CountryEntity ..> Country
 Person -> Country
 PersonRepository ..> PersonEntity
 PagingAndSortingRepository <|-- PersonRepository
 PersonService --> PersonRepository
 PersonController --> PersonService
+PersonService ..> Person
+PersonController ..> Person
 
 ----
 
