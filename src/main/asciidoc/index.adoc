@@ -36,7 +36,7 @@ package com.spring.training.entity {
     class PersonEntity
 }
 
-package com.spring.training.annotation {
+package com.spring.training.mapping {
     class CountryMapper
     class PersonMapper
 }
