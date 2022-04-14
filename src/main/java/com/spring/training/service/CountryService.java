@@ -1,6 +1,5 @@
 package com.spring.training.service;
 
-import com.spring.training.entity.CountryEntity;
 import com.spring.training.exception.EntityNotFoundException;
 import com.spring.training.exception.RequestException;
 import com.spring.training.domain.Country;
@@ -38,13 +37,12 @@ public class CountryService {
     }
 
     public Country createCountry(Country country) {
-       countryRepository.findByNameIgnoreCase(country.getName())
+        countryRepository.findByNameIgnoreCase(country.getName())
                 .ifPresent(entity -> {
                     throw new RequestException(String.format("the country with name %s is already created", entity.getName()),
                             HttpStatus.CONFLICT);
                 });
-       return countryMapper.toCountry(
-               countryRepository.save(countryMapper.fromCountry(country)));
+        return countryMapper.toCountry(countryRepository.save(countryMapper.fromCountry(country)));
     }
 
     @CachePut(key = "#name")
@@ -59,7 +57,7 @@ public class CountryService {
 
     @CacheEvict(key = "#name")
     public void deleteCountry(String name) {
-        if(countryRepository.existsById(name)) {
+        if (countryRepository.existsById(name)) {
             try {
                 countryRepository.deleteById(name);
             } catch (Exception e) {
