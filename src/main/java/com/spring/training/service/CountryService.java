@@ -21,8 +21,8 @@ import java.util.stream.StreamSupport;
 @AllArgsConstructor
 public class CountryService {
 
-    private final CountryRepository countryRepository;
-    private final CountryMapper countryMapper;
+    CountryRepository countryRepository;
+    CountryMapper countryMapper;
 
     public List<Country> getCountries() {
         return StreamSupport.stream(countryRepository.findAll().spliterator(), false)

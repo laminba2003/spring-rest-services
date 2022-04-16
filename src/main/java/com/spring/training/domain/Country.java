@@ -11,8 +11,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Country implements Serializable {
     @NotNull
-    private String name;
+    String name;
     @NotNull
-    private String capital;
-    private int population;
+    String capital;
+    int population;
 }

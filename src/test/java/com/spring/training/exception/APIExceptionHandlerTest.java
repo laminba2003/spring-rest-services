@@ -20,10 +20,10 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 public class APIExceptionHandlerTest {
 
-    private MockMvc mockMvc;
+    MockMvc mockMvc;
 
     @Mock
-    private PersonController personController;
+    PersonController personController;
 
     @BeforeEach
     void setUp() {

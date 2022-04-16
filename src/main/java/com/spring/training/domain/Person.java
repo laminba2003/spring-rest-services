@@ -10,11 +10,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Person implements Serializable {
-    private Long id;
+    Long id;
     @NotNull
-    private String firstName;
+    String firstName;
     @NotNull
-    private String lastName;
+    String lastName;
     @NotNull
-    private Country country;
+    Country country;
 }

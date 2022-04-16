@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CountryController {
 
-    private final CountryService countryService;
+    CountryService countryService;
 
     @GetMapping
     public List<Country> getCountries() {

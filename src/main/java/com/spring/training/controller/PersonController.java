@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class PersonController {
 
-    private final PersonService personService;
+    PersonService personService;
 
     @GetMapping
     public Page<Person> getPersons(Pageable pageable) {

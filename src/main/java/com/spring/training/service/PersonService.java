@@ -19,9 +19,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class PersonService {
 
-    private final PersonRepository personRepository;
-    private final CountryRepository countryRepository;
-    private final PersonMapper personMapper;
+    PersonRepository personRepository;
+    CountryRepository countryRepository;
+    PersonMapper personMapper;
 
     public Page<Person> getPersons(Pageable pageable) {
         return personRepository.findAll(pageable).map(personMapper::toPerson);

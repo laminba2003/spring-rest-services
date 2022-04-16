@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class APIException {
-    private String message;
-    private HttpStatus status;
-    private LocalDateTime timestamp;
+    String message;
+    HttpStatus status;
+    LocalDateTime timestamp;
 }
