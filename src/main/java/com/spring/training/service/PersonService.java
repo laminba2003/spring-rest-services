@@ -10,9 +10,11 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import java.util.Locale;
 
 @Service
 @CacheConfig(cacheNames = "persons")
@@ -22,6 +24,7 @@ public class PersonService {
     PersonRepository personRepository;
     CountryRepository countryRepository;
     PersonMapper personMapper;
+    MessageSource messageSource;
 
     public Page<Person> getPersons(Pageable pageable) {
         return personRepository.findAll(pageable).map(personMapper::toPerson);
@@ -30,12 +33,15 @@ public class PersonService {
     @Cacheable(key = "#id")
     public Person getPerson(Long id) {
         return personMapper.toPerson(personRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(String.format("person not found with id = %d", id))));
+                new EntityNotFoundException(messageSource.getMessage("person.notfound", new Object[]{id},
+                        Locale.getDefault()))));
     }
 
     public Person createPerson(Person person) {
         countryRepository.findByNameIgnoreCase(person.getCountry().getName()).orElseThrow(() ->
-                new EntityNotFoundException(String.format("country not found with name = %s", person.getCountry().getName())));
+                new EntityNotFoundException(messageSource.getMessage("country.notfound",
+                        new Object[]{person.getCountry().getName()},
+                        Locale.getDefault())));
         person.setId(null);
         return personMapper.toPerson(personRepository.save(personMapper.fromPerson(person)));
     }
@@ -45,10 +51,14 @@ public class PersonService {
         return personRepository.findById(id)
                 .map(entity -> {
                     countryRepository.findByNameIgnoreCase(person.getCountry().getName()).orElseThrow(() ->
-                            new EntityNotFoundException(String.format("country not found with name = %s", person.getCountry().getName())));
+                            new EntityNotFoundException(messageSource.getMessage("country.notfound",
+                                    new Object[]{person.getCountry().getName()},
+                                    Locale.getDefault())));
                     person.setId(id);
                     return personMapper.toPerson(personRepository.save(personMapper.fromPerson(person)));
-                }).orElseThrow(() -> new EntityNotFoundException(String.format("person not found with id = %d", id)));
+                }).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("person.notfound",
+                        new Object[]{id},
+                        Locale.getDefault())));
     }
 
     @CacheEvict(key = "#id")

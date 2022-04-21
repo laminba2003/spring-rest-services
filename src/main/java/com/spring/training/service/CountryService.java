@@ -10,9 +10,11 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -23,6 +25,7 @@ public class CountryService {
 
     CountryRepository countryRepository;
     CountryMapper countryMapper;
+    MessageSource messageSource;
 
     public List<Country> getCountries() {
         return StreamSupport.stream(countryRepository.findAll().spliterator(), false)
@@ -33,14 +36,15 @@ public class CountryService {
     @Cacheable(key = "#name")
     public Country getCountry(String name) {
         return countryMapper.toCountry(countryRepository.findByNameIgnoreCase(name).orElseThrow(() ->
-                new EntityNotFoundException(String.format("country not found with name = %s", name))));
+                new EntityNotFoundException(messageSource.getMessage("country.notfound", new Object[]{name},
+                        Locale.getDefault()))));
     }
 
     public Country createCountry(Country country) {
         countryRepository.findByNameIgnoreCase(country.getName())
                 .ifPresent(entity -> {
-                    throw new RequestException(String.format("the country with name %s is already created", entity.getName()),
-                            HttpStatus.CONFLICT);
+                    throw new RequestException(messageSource.getMessage("country.exists", new Object[]{country.getName()},
+                            Locale.getDefault()), HttpStatus.CONFLICT);
                 });
         return countryMapper.toCountry(countryRepository.save(countryMapper.fromCountry(country)));
     }
@@ -52,7 +56,8 @@ public class CountryService {
                     country.setName(name);
                     return countryMapper.toCountry(
                             countryRepository.save(countryMapper.fromCountry(country)));
-                }).orElseThrow(() -> new EntityNotFoundException(String.format("country not found with name = %s", name)));
+                }).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("country.notfound", new Object[]{name},
+                        Locale.getDefault())));
     }
 
     @CacheEvict(key = "#name")
@@ -61,7 +66,8 @@ public class CountryService {
             try {
                 countryRepository.deleteById(name);
             } catch (Exception e) {
-                throw new RequestException(String.format("the country with name %s cannot be deleted", name),
+                throw new RequestException(messageSource.getMessage("country.errordeletion", new Object[]{name},
+                        Locale.getDefault()),
                         HttpStatus.CONFLICT);
             }
         }

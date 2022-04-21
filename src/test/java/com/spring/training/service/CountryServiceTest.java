@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +33,9 @@ class CountryServiceTest extends BaseTestClass {
 
     @Spy
     CountryMapper countryMapper = Mappers.getMapper(CountryMapper.class);
+
+    @Spy
+    MessageSource messageSource = getMessageSource();
 
     @InjectMocks
     CountryService countryService;
