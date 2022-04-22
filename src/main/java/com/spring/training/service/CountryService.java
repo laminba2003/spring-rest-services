@@ -62,14 +62,12 @@ public class CountryService {
 
     @CacheEvict(key = "#name")
     public void deleteCountry(String name) {
-        if (countryRepository.existsById(name)) {
-            try {
-                countryRepository.deleteById(name);
-            } catch (Exception e) {
-                throw new RequestException(messageSource.getMessage("country.errordeletion", new Object[]{name},
-                        Locale.getDefault()),
-                        HttpStatus.CONFLICT);
-            }
+        try {
+            countryRepository.deleteById(name);
+        } catch (Exception e) {
+            throw new RequestException(messageSource.getMessage("country.errordeletion", new Object[]{name},
+                    Locale.getDefault()),
+                    HttpStatus.CONFLICT);
         }
     }
 

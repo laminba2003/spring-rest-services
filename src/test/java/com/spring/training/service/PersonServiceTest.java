@@ -5,6 +5,7 @@ import com.spring.training.domain.Person;
 import com.spring.training.entity.CountryEntity;
 import com.spring.training.entity.PersonEntity;
 import com.spring.training.exception.EntityNotFoundException;
+import com.spring.training.exception.RequestException;
 import com.spring.training.mapping.CountryMapper;
 import com.spring.training.mapping.PersonMapper;
 import com.spring.training.repository.CountryRepository;
@@ -21,6 +22,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PersonServiceTest extends BaseTestClass {
@@ -141,9 +143,16 @@ class PersonServiceTest extends BaseTestClass {
     @Test
     void testDeletePerson() {
         Long id = 1L;
-        given(personRepository.existsById(id)).willReturn(true);
         personService.deletePerson(id);
         verify(personRepository).deleteById(id);
+
+        // test person cannot be deleted
+        doThrow(RuntimeException.class).when(personRepository).deleteById(id);
+        assertThatThrownBy(() -> personService.deletePerson(id))
+                .isInstanceOf(RequestException.class)
+                .hasMessageContaining(String.format("the person with id %s cannot be deleted", id))
+                .hasFieldOrPropertyWithValue("status", HttpStatus.CONFLICT);
+
     }
 
 }

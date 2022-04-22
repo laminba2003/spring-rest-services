@@ -2,6 +2,7 @@ package com.spring.training.service;
 
 import com.spring.training.domain.Person;
 import com.spring.training.exception.EntityNotFoundException;
+import com.spring.training.exception.RequestException;
 import com.spring.training.mapping.PersonMapper;
 import com.spring.training.repository.CountryRepository;
 import com.spring.training.repository.PersonRepository;
@@ -13,6 +14,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.Locale;
 
@@ -63,8 +65,12 @@ public class PersonService {
 
     @CacheEvict(key = "#id")
     public void deletePerson(Long id) {
-        if(personRepository.existsById(id)) {
+        try {
             personRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RequestException(messageSource.getMessage("person.errordeletion", new Object[]{id},
+                    Locale.getDefault()),
+                    HttpStatus.CONFLICT);
         }
     }
 
