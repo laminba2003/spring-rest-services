@@ -69,7 +69,7 @@ api:
       username: cm9vdA==
       password: cGFzc2Vy
     jwt:
-      jwk: "http://keycloak/auth/realms/training/protocol/openid-connect/certs"
+      jwk: "http://keycloak:9092/auth/realms/training/protocol/openid-connect/certs"
     wavefront:
       token: YThlYzY3MGUtNjc1OS00YWUzLWE0MzUtOTNjY2Y2ODNlZTIy
     redis:
