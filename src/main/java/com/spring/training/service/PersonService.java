@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import javax.transaction.Transactional;
 import java.util.Locale;
 
 @Service
@@ -39,6 +40,7 @@ public class PersonService {
                         Locale.getDefault()))));
     }
 
+    @Transactional
     public Person createPerson(Person person) {
         countryRepository.findByNameIgnoreCase(person.getCountry().getName()).orElseThrow(() ->
                 new EntityNotFoundException(messageSource.getMessage("country.notfound",
@@ -49,6 +51,7 @@ public class PersonService {
     }
 
     @CachePut(key = "#id")
+    @Transactional
     public Person updatePerson(Long id, Person person) {
         return personRepository.findById(id)
                 .map(entity -> {
@@ -64,6 +67,7 @@ public class PersonService {
     }
 
     @CacheEvict(key = "#id")
+    @Transactional
     public void deletePerson(Long id) {
         try {
             personRepository.deleteById(id);
