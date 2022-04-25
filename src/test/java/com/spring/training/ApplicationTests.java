@@ -20,7 +20,7 @@ public class ApplicationTests {
 
 	@DynamicPropertySource
 	static void properties(DynamicPropertyRegistry registry) {
-		registry.add("spring.datasource.url",mysql::getJdbcUrl);
+		registry.add("spring.datasource.url", () -> mysql.getJdbcUrl() + "?enabledTLSProtocols=TLSv1.2");
 		registry.add("spring.datasource.username", mysql::getUsername);
 		registry.add("spring.datasource.password", mysql::getPassword);
 
