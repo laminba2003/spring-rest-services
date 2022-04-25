@@ -1,4 +1,7 @@
 spring:
+    datasource:
+      jpa:
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     liquibase:
       change-log: classpath:/db/changelog/changelog-master.xml
     security:
