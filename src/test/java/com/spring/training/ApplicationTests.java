@@ -1,12 +1,14 @@
 package com.spring.training;
 
 import com.spring.training.domain.Country;
+import com.spring.training.domain.Person;
 import com.spring.training.service.CountryService;
 import com.spring.training.service.PersonService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
@@ -63,6 +65,8 @@ public class ApplicationTests {
 		//test createCountry
 		country = countryService.createCountry(new Country("italy", "rome", 121212212));
 		assertThat(country).isNotNull();
+		assertThat(cacheManager.getCache("countries").get("italy"))
+				.isNull();
 
 		//test updateCountry
 		country = countryService.updateCountry("italy",
@@ -80,6 +84,36 @@ public class ApplicationTests {
 
 	@Test
 	void testPersonService() {
+		// test getPersons
+		assertThat(personService.getPersons(PageRequest.of(0,3)).getContent().size()).isEqualTo(2);
+
+		// test getPerson
+		Long id = 1L;
+		Person person = personService.getPerson(id);
+		assertThat(person).isNotNull();
+		assertThat(cacheManager.getCache("persons").get(id).get())
+				.isEqualTo(person);
+
+		// test createPerson
+		Country country = countryService.getCountry("france");
+		person = new Person(null, "John", "Doe", country);
+		person = personService.createPerson(person);
+		assertThat(person).isNotNull();
+		assertThat(person.getId()).isEqualTo(3L);
+		assertThat(cacheManager.getCache("persons").get(person.getId()))
+				.isNull();
+
+		// test updatePerson
+		person.setFirstName("Johnny");
+		person.setLastName("Deep");
+		person = personService.updatePerson(person.getId(), person);
+		assertThat(cacheManager.getCache("persons").get(person.getId()).get())
+				.isEqualTo(person);
+
+		// test deletePerson
+		personService.deletePerson(person.getId());
+		assertThat(cacheManager.getCache("persons").get(person.getId()))
+				.isNull();
 	}
 
 }
