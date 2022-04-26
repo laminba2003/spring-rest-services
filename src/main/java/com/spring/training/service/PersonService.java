@@ -16,7 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.Locale;
 
 @Service
@@ -29,11 +29,13 @@ public class PersonService {
     PersonMapper personMapper;
     MessageSource messageSource;
 
+    @Transactional(readOnly = true)
     public Page<Person> getPersons(Pageable pageable) {
         return personRepository.findAll(pageable).map(personMapper::toPerson);
     }
 
     @Cacheable(key = "#id")
+    @Transactional(readOnly = true)
     public Person getPerson(Long id) {
         return personMapper.toPerson(personRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(messageSource.getMessage("person.notfound", new Object[]{id},

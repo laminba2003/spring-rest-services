@@ -13,7 +13,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -28,6 +28,7 @@ public class CountryService {
     CountryMapper countryMapper;
     MessageSource messageSource;
 
+    @Transactional(readOnly = true)
     public List<Country> getCountries() {
         return StreamSupport.stream(countryRepository.findAll().spliterator(), false)
                 .map(countryMapper::toCountry)
@@ -35,6 +36,7 @@ public class CountryService {
     }
 
     @Cacheable(key = "#name")
+    @Transactional(readOnly = true)
     public Country getCountry(String name) {
         return countryMapper.toCountry(countryRepository.findByNameIgnoreCase(name).orElseThrow(() ->
                 new EntityNotFoundException(messageSource.getMessage("country.notfound", new Object[]{name},
