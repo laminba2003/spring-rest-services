@@ -1,12 +1,14 @@
 package com.spring.training;
 
+import com.spring.training.config.LoggingAspect;
 import com.spring.training.domain.Country;
 import com.spring.training.domain.Person;
+import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
-@Import(TestSecurityConfig.class)
+@Import({TestSecurityConfig.class, AopAutoConfiguration.class, LoggingAspect.class})
 public abstract class BaseTestClass {
 
     protected Person getPerson() {

@@ -28,6 +28,8 @@ public class TestSecurityConfig {
         headers.put("alg","RS256");
         Map<String, Object> claims = new HashMap<>();
         claims.put("roles", Collections.singletonList("admin"));
+        claims.put("given_name","John");
+        claims.put("family_name","Doe");
         claims.put("email", "johndoe@example.com");
         return new Jwt(
                 token,
