@@ -57,15 +57,9 @@ public class LoggingAspect {
         log.debug("Enter: {}.{}() with argument[s] = {} and user = {}", joinPoint.getSignature().getDeclaringTypeName(),
                 joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()),
                 SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        try {
-            Object result = joinPoint.proceed();
-            log.debug("Exit: {}.{}() with result = {}", joinPoint.getSignature().getDeclaringTypeName(),
-                    joinPoint.getSignature().getName(), result);
-            return result;
-        } catch (IllegalArgumentException e) {
-            log.error("Illegal argument: {} in {}.{}()", Arrays.toString(joinPoint.getArgs()),
-                    joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName());
-            throw e;
-        }
+        Object result = joinPoint.proceed();
+        log.debug("Exit: {}.{}() with result = {}", joinPoint.getSignature().getDeclaringTypeName(),
+                joinPoint.getSignature().getName(), result);
+        return result;
     }
 }
