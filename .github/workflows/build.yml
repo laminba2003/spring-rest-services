@@ -37,3 +37,7 @@ jobs:
             mvn -B spring-boot:build-image -Dspring-boot.build-image.publish=true \
                 -Ddocker.user=${{ secrets.DOCKER_USER }} -Ddocker.token=${{ secrets.DOCKER_TOKEN }} \
                 -DskipTests
+      - name: Publish package
+        run: mvn -B deploy -DskipTests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
