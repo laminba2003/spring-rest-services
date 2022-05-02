@@ -318,6 +318,11 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>*</exclude>
+                            </excludes>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>report</id>
@@ -325,7 +330,6 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
-
                     </execution>
                 </executions>
             </plugin>
