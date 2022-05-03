@@ -49,6 +49,7 @@ public class ApplicationTests {
 		registry.add("spring.redis.host", redis::getHost);
 		registry.add("spring.redis.port", redis::getFirstMappedPort);
 		registry.add("spring.redis.timeout", () -> 60000);
+		registry.add("spring.redis.connect-timeout", () -> 60000);
 	}
 
 	@Test
