@@ -21,13 +21,14 @@ public class SecurityConfig  {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-       return http.authorizeRequests(authentication -> authentication
+       http.authorizeRequests(authentication -> authentication
                         .antMatchers("/error").permitAll()
                         .antMatchers("/actuator/**").permitAll()
                         .antMatchers("/**").authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt().jwtAuthenticationConverter(new JwtConverter()))
                 .cors().and().csrf().disable().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().build();
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+       return http.build();
     }
 
     @Bean
