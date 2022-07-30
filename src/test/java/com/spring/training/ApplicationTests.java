@@ -31,7 +31,7 @@ public class ApplicationTests {
 	CacheManager cacheManager;
 
 	@Container
-	static MySQLContainer mysql = new MySQLContainer("mysql:5.7")
+	static MySQLContainer mysql = new MySQLContainer("mysql:8.0")
 				.withDatabaseName("spring_training")
 				.withUsername("user")
 				.withPassword("password");
@@ -42,7 +42,7 @@ public class ApplicationTests {
 
 	@DynamicPropertySource
 	static void properties(DynamicPropertyRegistry registry) {
-		registry.add("spring.datasource.url", () -> mysql.getJdbcUrl() + "?enabledTLSProtocols=TLSv1.2");
+		registry.add("spring.datasource.url", () -> mysql.getJdbcUrl() + "?allowPublicKeyRetrieval=true&enabledTLSProtocols=TLSv1.2");
 		registry.add("spring.datasource.username", mysql::getUsername);
 		registry.add("spring.datasource.password", mysql::getPassword);
 		registry.add("spring.cache.type", () -> "redis");
