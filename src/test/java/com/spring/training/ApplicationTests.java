@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers
 @SpringBootTest(classes = Application.class)
-public class ApplicationTests {
+public class ApplicationTests extends BaseTestClass {
 
 	@Autowired
 	CountryService countryService;

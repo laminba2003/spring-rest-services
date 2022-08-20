@@ -7,8 +7,3 @@ spring:
         use-new-id-generator-mappings: false
     liquibase:
       change-log: classpath:/db/changelog/changelog-master.xml
-    security:
-      oauth2:
-        resourceserver:
-          jwt:
-            public-key-location: classpath:idp-key.pub
