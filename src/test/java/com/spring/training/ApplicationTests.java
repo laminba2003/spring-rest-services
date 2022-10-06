@@ -31,13 +31,13 @@ public class ApplicationTests extends BaseTestClass {
 	CacheManager cacheManager;
 
 	@Container
-	static MySQLContainer mysql = new MySQLContainer("mysql:8.0")
+	static final MySQLContainer mysql = new MySQLContainer("mysql:8.0")
 				.withDatabaseName("spring_training")
 				.withUsername("user")
 				.withPassword("password");
 
 	@Container
-	static GenericContainer redis = new GenericContainer<>("redis:5.0.3-alpine")
+	static final GenericContainer redis = new GenericContainer<>("redis:5.0.3-alpine")
 			.withExposedPorts(6379);
 
 	@DynamicPropertySource
