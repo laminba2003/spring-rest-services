@@ -17,6 +17,7 @@ services:
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
     profiles:
+      - dev
       - all
 
   back-end:
@@ -51,6 +52,7 @@ services:
     volumes:
       - redis_data:/data
     profiles:
+      - dev
       - all
 
   postgres:
@@ -78,6 +80,7 @@ services:
       - 8080:8080
     depends_on:
       - postgres
+      - all
 
   maildev:
     container_name: spring-rest-maildev
