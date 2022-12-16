@@ -64,6 +64,9 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    profiles:
+      - dev
+      - all
 
   keycloak:
     image: bitnami/keycloak:18.0.0-debian-11-r0
@@ -80,6 +83,8 @@ services:
       - 8080:8080
     depends_on:
       - postgres
+    profiles:
+      - dev
       - all
 
   maildev:
@@ -88,6 +93,10 @@ services:
     ports:
       - 9999:80
       - 25
+    profiles:
+      - dev
+      - all
+
 
 volumes:
   postgres_data:
