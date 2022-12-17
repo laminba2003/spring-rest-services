@@ -8,6 +8,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Secured("admin")
+@Secured("ROLE_admin")
 public @interface IsAdmin {
 }

@@ -1,8 +1,8 @@
 spring:
     datasource:
-        password: passer
-        url: jdbc:mysql://mysql:3306/spring-rest-db?allowPublicKeyRetrieval=true&autoReconnect=true&useSSL=false
-        username: root
+        password: user
+        url: jdbc:mysql://localhost:3307/spring-training?allowPublicKeyRetrieval=true&autoReconnect=true&useSSL=false
+        username: user
     jpa:
       database-platform: org.hibernate.dialect.MySQL8Dialect
       open-in-view: false
