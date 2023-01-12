@@ -1,5 +1,6 @@
 package com.spring.training.config;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -8,8 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -31,15 +32,22 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsFilter corsFilter() {
+    @ConfigurationProperties("cors")
+    public Cors cors() {
+        return new Cors();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource(Cors cors) {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin(CorsConfiguration.ALL);
-        config.addAllowedHeader(CorsConfiguration.ALL);
-        config.addAllowedMethod(CorsConfiguration.ALL);
+        config.setAllowCredentials(cors.isAllowCredentials());
+        config.addAllowedOriginPattern(cors.getAllowedOriginPattern());
+        config.setAllowedHeaders(cors.getAllowedHeaders());
+        config.setAllowedMethods(cors.getAllowedMethods());
         source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
+        return source;
     }
+
 
 }

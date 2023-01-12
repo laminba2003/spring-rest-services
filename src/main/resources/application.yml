@@ -38,3 +38,19 @@ info:
 wavefront:
     application:
         name: spring-training
+
+
+cors:
+    allowCredentials: true
+    allowedOriginPattern: "*"
+    allowedHeaders:
+        - "*"
+    allowedMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PUT
+        - OPTIONS
+        - PATCH
+        - DELETE
