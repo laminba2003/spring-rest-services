@@ -21,6 +21,3 @@ springdoc:
       client-secret: tkkH2u6lTvxh3JFsaveNQuXPWXFkd4yw
       authorizationUrl: http://localhost:8080/realms/training/protocol/openid-connect/auth
       tokenUrl: http://localhost:8080/realms/training/protocol/openid-connect/token
-
-logging:
-  config: classpath:log4j2-dev.xml
