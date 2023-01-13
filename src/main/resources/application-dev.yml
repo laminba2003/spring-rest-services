@@ -1,19 +1,26 @@
 spring:
-    datasource:
-        password: user
-        url: jdbc:mysql://localhost:3307/spring-training?allowPublicKeyRetrieval=true&autoReconnect=true&useSSL=false
-        username: user
-    jpa:
-      database-platform: org.hibernate.dialect.MySQL8Dialect
-      open-in-view: false
-      hibernate:
-        use-new-id-generator-mappings: false
-    security:
-        oauth2:
-            resourceserver:
-                jwt:
-                    jwk-set-uri: http://localhost:8080/realms/training/protocol/openid-connect/certs
+  datasource:
+    password: user
+    url: jdbc:mysql://localhost:3307/spring-training?allowPublicKeyRetrieval=true&autoReconnect=true&useSSL=false
+    username: user
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+    hibernate:
+      use-new-id-generator-mappings: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/training/protocol/openid-connect/certs
 
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: spring
+      client-secret: tkkH2u6lTvxh3JFsaveNQuXPWXFkd4yw
+      authorizationUrl: http://localhost:8080/realms/training/protocol/openid-connect/auth
+      tokenUrl: http://localhost:8080/realms/training/protocol/openid-connect/token
 
 logging:
-    config: classpath:log4j2-dev.xml
+  config: classpath:log4j2-dev.xml
