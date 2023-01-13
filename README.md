@@ -11,7 +11,6 @@ This is a simple SpringBoot Rest Service built around these capabilities :
 - Logging with log4j2
 - Oauth2 Security with OIDC
 - Stubs generation with Spring Cloud Contract
-- Monitoring and Observability with Micrometer and Wavefront
 - Distributed Tracing with Sleuth
 - Documentation with Spring REST Docs and OpenAPI 
 - CI/CD with Github actions

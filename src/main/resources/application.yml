@@ -11,7 +11,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,wavefront
+        include: health,info,metrics
   info:
     env:
       enabled: true
@@ -30,11 +30,6 @@ info:
   application:
     name: Spring Rest
     description: Simple SpringBoot Rest application
-
-wavefront:
-  application:
-    name: spring-training
-
 
 cors:
   allowCredentials: true
