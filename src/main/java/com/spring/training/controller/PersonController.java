@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class PersonController {
     @GetMapping
     @Operation(summary = "getPersons", description = "return a page of persons")
     @ApiResponse(responseCode = "200", description = "persons found successfully")
-    public Page<Person> getPersons(Pageable pageable) {
+    public Page<Person> getPersons(@ParameterObject Pageable pageable) {
         return personService.getPersons(pageable);
     }
 
