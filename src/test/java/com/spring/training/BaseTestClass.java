@@ -1,6 +1,6 @@
 package com.spring.training;
 
-import com.spring.training.config.LoggingAspect;
+import com.spring.training.util.LoggingAspect;
 import com.spring.training.domain.Country;
 import com.spring.training.domain.Person;
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
